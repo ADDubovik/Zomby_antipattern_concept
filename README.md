@@ -1,1 +1,1 @@
-# Zomby_antipattern_concept
+Zomby antipattern demonstration snippet.
