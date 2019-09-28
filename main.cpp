@@ -2,36 +2,25 @@
 #include <memory>
 #include <chrono>
 #include <thread>
-#include <future>
 
-class Zomby : public std::enable_shared_from_this<Zomby>
-{
-public:
-    void runSomethingAsync();
-
-private:
-    std::future<void> _future;
-};
-
-void Zomby::runSomethingAsync()
-{
-    _future = std::async(std::launch::async, [shis = shared_from_this()](){
-        while(true) {
-            std::cout << "Zomby is alive!" << std::endl;
-            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-        }
-    });
-}
+#include "ComplexZomby/ComplexZomby.h"
+#include "SimpleZomby/SimpleZomby.h"
+#include "WriteToConsoleListener.h"
 
 int main()
 {
     {
-        auto zomby = std::make_shared<Zomby>();
-        zomby->runSomethingAsync();
-        std::this_thread::sleep_for(std::chrono::milliseconds(5000));
-    } // Zomby should be killed here
+        auto simpleZomby = std::make_shared<SimpleZomby>();
+        simpleZomby->runSomethingAsync();
 
-    std::cout << "Zomby was killed" << std::endl;
+        auto complexZomby = std::make_shared<ComplexZomby>();
+        auto writeToConsoleListener = std::make_shared<WriteToConsoleListener>();
+        complexZomby->run(writeToConsoleListener);
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(4500));
+    } // Zombies should be killed here
+
+    std::cout << "Zombies were killed" << std::endl;
 
     while (true)
         std::this_thread::sleep_for(std::chrono::milliseconds(1));
