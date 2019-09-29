@@ -1,6 +1,7 @@
 #include <iostream>
 
-#include "azzio.h"
+#include "io_context.h"
+#include "stream.h"
 
 namespace boozd::azzio {
 io_context::io_context()
@@ -16,7 +17,7 @@ io_context::~io_context()
     std::cout << __func__ << std::endl;
 }
 
-void io_context::async_read(io_context::buffer& buf, io_context::stream& s, io_context::handler&& h)
+void io_context::async_read(io_context::buffer& buf, stream& s, io_context::handler&& h)
 {
     _pack_shared = std::make_shared<pack>(buf, s, std::move(h));
 }
@@ -35,7 +36,8 @@ void io_context::run()
                 auto start = steady_clock::now();
                 while (semaphore_shared && *semaphore_shared && (duration_cast<milliseconds>(steady_clock::now() - start).count() < 1000)) {
                     if (!(rand() & 0xff))
-                        buf.emplace_back(s());
+                        if (auto read = s.read())
+                            buf.emplace_back(*read);
                     std::this_thread::sleep_for(std::chrono::milliseconds(1));
                 }
 

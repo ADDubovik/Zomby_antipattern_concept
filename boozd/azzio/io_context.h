@@ -7,6 +7,8 @@
 #include <future>
 
 namespace boozd::azzio {
+class stream;
+
 class io_context
 {
 public:
@@ -20,7 +22,6 @@ public:
 
     enum class error_code {no_error, good_error, bad_error, unknown_error, known_error, well_known_error};
     using buffer = std::vector<int>;
-    using stream = std::function<int()>;
     using handler = std::function<void(error_code)>;
 
     // Start an asynchronous operation to read a certain amount of data from a stream.

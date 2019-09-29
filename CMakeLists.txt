@@ -5,8 +5,13 @@ project(ZombyConcept LANGUAGES CXX)
 include_directories(${CMAKE_SOURCE_DIR})
 
 set(SRC
-	boozd/azzio.h
-	boozd/azzio.cpp
+	boozd/azzio/impl/random_stream.h
+	boozd/azzio/impl/random_stream.cpp
+	boozd/azzio/io_context.h
+	boozd/azzio/io_context.cpp
+	boozd/azzio/stream.h
+	BoozdedZomby/Impl/BoozdedZomby.h
+	BoozdedZomby/Impl/BoozdedZomby.cpp
 	Common/Impl/WriteToConsoleListener.h
 	Common/Impl/WriteToConsoleListener.cpp
 	Common/Listener.h
