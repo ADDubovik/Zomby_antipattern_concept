@@ -14,7 +14,6 @@ class stream;
 class io_context
 {
 public:
-    io_context();
     ~io_context();
 
     enum class error_code {no_error, good_error, bad_error, unknown_error, known_error, well_known_error};
@@ -31,11 +30,7 @@ public:
 private:
     using pack = std::tuple<buffer&, stream&, handler&&>;
     using pack_shared = std::shared_ptr<pack>;
-    using semaphore = std::atomic<bool>;
-    using semaphore_shared = std::shared_ptr<semaphore>;
 
     pack_shared _pack_shared;
-    const semaphore_shared _semaphore_shared = std::make_shared<semaphore>(false);
-    std::optional<std::future<void>> _future_optional;
 };
 } // namespace boozd::azzio

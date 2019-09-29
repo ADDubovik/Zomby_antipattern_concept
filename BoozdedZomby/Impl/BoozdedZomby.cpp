@@ -31,11 +31,10 @@ void Zomby::run(const std::shared_ptr<Common::Listener> listener)
         _stream = std::make_shared<boozd::azzio::random_stream>();
         _buffer = std::make_shared<boozd::azzio::buffer>();
         _context = std::make_shared<boozd::azzio::io_context>();
-        _futureOptional = std::async(std::launch::async, [shis = shared_from_this()](){
-            if (shis && shis->_semaphoreShared && *shis->_semaphoreShared && shis->_buffer && shis->_stream && shis->_context && shis->_listener) {
+        _futureOptional = std::async(std::launch::async, [shis = shared_from_this()]() {
+            while (shis && shis->_semaphoreShared && *shis->_semaphoreShared && shis->_buffer && shis->_stream && shis->_context && shis->_listener) {
                 auto handler = [shis](auto errorCode) {
-                    if (shis && shis->_listener && shis->_buffer && errorCode == boozd::azzio::io_context::error_code::no_error)
-                    {
+                    if (shis && shis->_listener && shis->_buffer && errorCode == boozd::azzio::io_context::error_code::no_error) {
                         std::ostringstream buf;
                         buf << "BoozdedZomby has got data: ";
                         for (auto const &elem : *shis->_buffer)
