@@ -20,11 +20,18 @@ namespace BoozdedZomby {
 class Zomby final : public Common::Manager, public std::enable_shared_from_this<Zomby>
 {
 public:
+    Zomby();
     ~Zomby() override;
+
+    // TODO: disable copy and move semantics
 
     void run(const std::shared_ptr<Common::Listener> listener) override;
 
 private:
+    using Semaphore = std::atomic<bool>;
+    using SemaphoreShared = std::shared_ptr<Semaphore>;
+
+    const SemaphoreShared _semaphoreShared;
     std::shared_ptr<Common::Listener> _listener;
     std::shared_ptr<boozd::azzio::stream> _stream;
     std::shared_ptr<boozd::azzio::buffer> _buffer;
