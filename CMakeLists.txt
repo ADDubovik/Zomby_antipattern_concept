@@ -5,6 +5,8 @@ project(ZombyConcept LANGUAGES CXX)
 include_directories(${CMAKE_SOURCE_DIR})
 
 set(SRC
+	boozd/azzio.h
+	boozd/azzio.cpp
 	Common/Impl/WriteToConsoleListener.h
 	Common/Impl/WriteToConsoleListener.cpp
 	Common/Listener.h
