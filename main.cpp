@@ -14,7 +14,7 @@ int main()
     auto writeToConsoleListener = std::make_shared<Common::WriteToConsoleListener>();
 
     {
-        auto simpleZomby = std::make_shared<SimpleZomby>();
+        auto simpleZomby = std::make_shared<SimpleZomby::Zomby>();
         simpleZomby->run(writeToConsoleListener);
 
         auto complicatedZomby = std::make_shared<ComplicatedZomby::Zomby>();

@@ -10,10 +10,11 @@ namespace Common {
 class Listener;
 } // namespace Common
 
-class SimpleZomby : public Common::Manager, public std::enable_shared_from_this<SimpleZomby>
+namespace SimpleZomby {
+class Zomby : public Common::Manager, public std::enable_shared_from_this<Zomby>
 {
 public:
-    ~SimpleZomby() override;
+    ~Zomby() override;
 
     void run(const std::shared_ptr<Common::Listener> listener) override;
 
@@ -24,3 +25,4 @@ private:
     SemaphoreShared _semaphoreShared;
     std::thread _thread;
 };
+} // namespace SimpleZomby

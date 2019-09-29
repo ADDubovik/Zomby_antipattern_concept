@@ -3,7 +3,8 @@
 #include "SimpleZomby.h"
 #include "Common/Listener.h"
 
-SimpleZomby::~SimpleZomby()
+namespace SimpleZomby {
+Zomby::~Zomby()
 {
     if (_semaphoreShared) {
         *_semaphoreShared = false;
@@ -15,7 +16,7 @@ SimpleZomby::~SimpleZomby()
     std::cout << typeid(*this).name() << "::" << __func__ << std::endl;
 }
 
-void SimpleZomby::run(const std::shared_ptr<Common::Listener> listener)
+void Zomby::run(const std::shared_ptr<Common::Listener> listener)
 {
     if (_semaphoreShared) {
         *_semaphoreShared = false;
@@ -28,10 +29,11 @@ void SimpleZomby::run(const std::shared_ptr<Common::Listener> listener)
 
     _thread = std::thread([shis = shared_from_this(), listener, semaphoreShared = _semaphoreShared](){
         while(shis && listener && semaphoreShared && *semaphoreShared) {
-            listener->processData(std::make_shared<Common::Listener::Data>("SimpleZomby is alive!\n"));
+            listener->processData(std::make_shared<Common::Listener::Data>("SimpleZomby      is alive!\n"));
             std::this_thread::sleep_for(std::chrono::milliseconds(1000));
         }
     });
 
     _thread.detach();
 }
+} // namespace SimpleZomby
