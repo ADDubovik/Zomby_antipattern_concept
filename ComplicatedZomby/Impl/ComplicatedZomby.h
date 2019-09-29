@@ -2,15 +2,15 @@
 
 #include <memory>
 
-#include "ComplexZomby/DataReceiver.h"
+#include "ComplicatedZomby/DataReceiver.h"
 
 class Listener;
 class DataSource;
 
-class ComplexZomby final : public DataReceiver, public std::enable_shared_from_this<ComplexZomby>
+class ComplicatedZomby final : public DataReceiver, public std::enable_shared_from_this<ComplicatedZomby>
 {
 public:
-    ~ComplexZomby() override;
+    ~ComplicatedZomby() override;
 
     void run(const std::shared_ptr<Listener> listener);
 

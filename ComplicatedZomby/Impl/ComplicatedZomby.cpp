@@ -1,16 +1,16 @@
 #include <sstream>
 #include <iostream>
 
-#include "ComplexZomby.h"
+#include "ComplicatedZomby.h"
 #include "RandomDataSource.h"
-#include "ComplexZomby/Listener.h"
+#include "ComplicatedZomby/Listener.h"
 
-ComplexZomby::~ComplexZomby()
+ComplicatedZomby::~ComplicatedZomby()
 {
     std::cout << __func__ << std::endl;
 }
 
-void ComplexZomby::run(const std::shared_ptr<Listener> listener)
+void ComplicatedZomby::run(const std::shared_ptr<Listener> listener)
 {
     _listener = listener;
 
@@ -20,11 +20,11 @@ void ComplexZomby::run(const std::shared_ptr<Listener> listener)
         _dataSource->run(shared_from_this());
 }
 
-void ComplexZomby::dataArrived(int data)
+void ComplicatedZomby::dataArrived(int data)
 {
     if (_listener) {
         std::ostringstream buf;
-        buf << "ComplexZomby have got a fresh data: " << data << std::endl;
+        buf << "ComplicatedZomby have got a fresh data: " << data << std::endl;
         _listener->processData(std::make_shared<std::string>(buf.str()));
     }
 }

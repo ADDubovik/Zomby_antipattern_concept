@@ -3,7 +3,7 @@
 #include <chrono>
 #include <thread>
 
-#include "ComplexZomby/Impl/ComplexZomby.h"
+#include "ComplicatedZomby/Impl/ComplicatedZomby.h"
 #include "SimpleZomby/SimpleZomby.h"
 #include "WriteToConsoleListener.h"
 
@@ -13,9 +13,9 @@ int main()
         auto simpleZomby = std::make_shared<SimpleZomby>();
         simpleZomby->runSomethingAsync();
 
-        auto complexZomby = std::make_shared<ComplexZomby>();
+        auto complicatedZomby = std::make_shared<ComplicatedZomby>();
         auto writeToConsoleListener = std::make_shared<WriteToConsoleListener>();
-        complexZomby->run(writeToConsoleListener);
+        complicatedZomby->run(writeToConsoleListener);
 
         std::this_thread::sleep_for(std::chrono::milliseconds(4500));
     } // Zombies should be killed here
