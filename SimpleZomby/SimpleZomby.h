@@ -1,6 +1,6 @@
 #pragma once
 
-#include <future>
+#include <thread>
 
 #include "Common/Manager.h"
 
@@ -16,5 +16,9 @@ public:
     void run(const std::shared_ptr<Common::Listener> listener) override;
 
 private:
-    std::future<void> _future;
+    using Semaphore = std::atomic<bool>;
+    using SemaphoreShared = std::shared_ptr<Semaphore>;
+
+    SemaphoreShared _semaphoreShared;
+    std::thread _thread;
 };
