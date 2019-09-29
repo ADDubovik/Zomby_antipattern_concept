@@ -2,8 +2,7 @@
 
 #include <memory>
 #include <atomic>
-#include <future>
-#include <optional>
+#include <thread>
 
 #include "ComplicatedZomby/DataSource.h"
 
@@ -11,7 +10,6 @@ namespace ComplicatedZomby {
 class RandomDataSource final : public DataSource
 {
 public:
-    RandomDataSource();
     ~RandomDataSource() override;
 
     virtual void run(const std::shared_ptr<DataReceiver> receiver) override;
@@ -20,7 +18,7 @@ private:
     using Semaphore = std::atomic<bool>;
     using SemaphoreShared = std::shared_ptr<Semaphore>;
 
-    const SemaphoreShared _semaphoreShared;
-    std::optional<std::future<void>> _futureOptional;
+    SemaphoreShared _semaphoreShared;
+    std::thread _thread;
 };
 } // namespace ComplicatedZomby

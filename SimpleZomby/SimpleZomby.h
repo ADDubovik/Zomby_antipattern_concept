@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+#include <atomic>
 #include <thread>
 
 #include "Common/Manager.h"

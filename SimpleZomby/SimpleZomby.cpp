@@ -5,8 +5,6 @@
 
 SimpleZomby::~SimpleZomby()
 {
-    std::cout << typeid(*this).name() << "::" << __func__ << std::endl;
-
     if (_semaphoreShared) {
         *_semaphoreShared = false;
         while (_semaphoreShared.use_count() > 1) {
