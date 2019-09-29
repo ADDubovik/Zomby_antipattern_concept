@@ -3,7 +3,10 @@
 #include "WriteToConsoleListener.h"
 
 namespace Common {
-WriteToConsoleListener::~WriteToConsoleListener() = default;
+WriteToConsoleListener::~WriteToConsoleListener()
+{
+    std::cout << __func__ << std::endl;
+}
 
 void WriteToConsoleListener::processData(const std::shared_ptr<const Data> data)
 {
