@@ -1,7 +1,7 @@
 #include <iostream>
 
 #include "RandomDataSource.h"
-#include "DataReceiver.h"
+#include "ComplexZomby/DataReceiver.h"
 
 RandomDataSource::RandomDataSource()
     : _semaphoreShared(std::make_shared<Semaphore>(false))

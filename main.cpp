@@ -3,7 +3,7 @@
 #include <chrono>
 #include <thread>
 
-#include "ComplexZomby/ComplexZomby.h"
+#include "ComplexZomby/Impl/ComplexZomby.h"
 #include "SimpleZomby/SimpleZomby.h"
 #include "WriteToConsoleListener.h"
 
