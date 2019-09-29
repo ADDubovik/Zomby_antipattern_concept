@@ -1,7 +1,8 @@
 #pragma once
 
-#include "ComplicatedZomby/Listener.h"
+#include "Common/Listener.h"
 
+namespace Common {
 class WriteToConsoleListener final : public Listener
 {
 public:
@@ -9,3 +10,4 @@ public:
 
     void processData(const std::shared_ptr<const std::string> data) override;
 };
+} // namespace Common

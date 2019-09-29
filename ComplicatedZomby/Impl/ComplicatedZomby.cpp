@@ -3,14 +3,15 @@
 
 #include "ComplicatedZomby.h"
 #include "RandomDataSource.h"
-#include "ComplicatedZomby/Listener.h"
+#include "Common/Listener.h"
 
-ComplicatedZomby::~ComplicatedZomby()
+namespace ComplicatedZomby {
+Zomby::~Zomby()
 {
     std::cout << __func__ << std::endl;
 }
 
-void ComplicatedZomby::run(const std::shared_ptr<Listener> listener)
+void Zomby::run(const std::shared_ptr<Common::Listener> listener)
 {
     _listener = listener;
 
@@ -20,7 +21,7 @@ void ComplicatedZomby::run(const std::shared_ptr<Listener> listener)
         _dataSource->run(shared_from_this());
 }
 
-void ComplicatedZomby::dataArrived(int data)
+void Zomby::dataArrived(int data)
 {
     if (_listener) {
         std::ostringstream buf;
@@ -28,3 +29,4 @@ void ComplicatedZomby::dataArrived(int data)
         _listener->processData(std::make_shared<std::string>(buf.str()));
     }
 }
+} // namespace ComplicatedZomby

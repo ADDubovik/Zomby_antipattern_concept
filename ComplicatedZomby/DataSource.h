@@ -2,6 +2,7 @@
 
 #include <memory>
 
+namespace ComplicatedZomby {
 class DataReceiver;
 
 class DataSource
@@ -11,3 +12,4 @@ public:
 
     virtual void run(const std::shared_ptr<DataReceiver> receiver) = 0;
 };
+} // namespace ComplicatedZomby

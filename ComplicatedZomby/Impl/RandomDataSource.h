@@ -7,6 +7,7 @@
 
 #include "ComplicatedZomby/DataSource.h"
 
+namespace ComplicatedZomby {
 class RandomDataSource final : public DataSource
 {
 public:
@@ -22,3 +23,4 @@ private:
     const SemaphoreShared _semaphoreShared;
     std::optional<std::future<void>> _futureOptional;
 };
+} // namespace ComplicatedZomby

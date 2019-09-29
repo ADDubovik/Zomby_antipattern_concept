@@ -2,6 +2,7 @@
 
 #include "WriteToConsoleListener.h"
 
+namespace Common {
 WriteToConsoleListener::~WriteToConsoleListener() = default;
 
 void WriteToConsoleListener::processData(const std::shared_ptr<const std::string> data)
@@ -9,3 +10,4 @@ void WriteToConsoleListener::processData(const std::shared_ptr<const std::string
     if (data)
         std::cout << *data;
 }
+} // namespace Common

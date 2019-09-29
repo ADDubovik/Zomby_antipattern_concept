@@ -3,6 +3,7 @@
 #include "RandomDataSource.h"
 #include "ComplicatedZomby/DataReceiver.h"
 
+namespace ComplicatedZomby {
 RandomDataSource::RandomDataSource()
     : _semaphoreShared(std::make_shared<Semaphore>(false))
 {
@@ -31,3 +32,4 @@ void RandomDataSource::run(const std::shared_ptr<DataReceiver> receiver)
         });
     }
 }
+} // namespace ComplicatedZomby

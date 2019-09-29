@@ -5,17 +5,18 @@ project(ZombyConcept LANGUAGES CXX)
 include_directories(${CMAKE_SOURCE_DIR})
 
 set(SRC
-        ComplicatedZomby/Impl/ComplicatedZomby.h
-        ComplicatedZomby/Impl/ComplicatedZomby.cpp
-        ComplicatedZomby/Impl/RandomDataSource.h
-        ComplicatedZomby/Impl/RandomDataSource.cpp
-        ComplicatedZomby/DataReceiver.h
-        ComplicatedZomby/DataSource.h
-        ComplicatedZomby/Listener.h
+	Common/Impl/WriteToConsoleListener.h
+	Common/Impl/WriteToConsoleListener.cpp
+	Common/Listener.h
+	ComplicatedZomby/Impl/ComplicatedZomby.h
+	ComplicatedZomby/Impl/ComplicatedZomby.cpp
+	ComplicatedZomby/Impl/RandomDataSource.h
+	ComplicatedZomby/Impl/RandomDataSource.cpp
+	ComplicatedZomby/DataReceiver.h
+	ComplicatedZomby/DataSource.h
+	ComplicatedZomby/Manager.h
 	SimpleZomby/SimpleZomby.h
 	SimpleZomby/SimpleZomby.cpp
-	WriteToConsoleListener.h
-	WriteToConsoleListener.cpp
 	main.cpp
 )
 

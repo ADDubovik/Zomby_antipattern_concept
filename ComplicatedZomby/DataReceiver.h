@@ -1,5 +1,6 @@
 #pragma once
 
+namespace ComplicatedZomby {
 class DataReceiver
 {
 public:
@@ -7,3 +8,4 @@ public:
 
     virtual void dataArrived(int data) = 0;
 };
+} // namespace ComplicatedZomby
