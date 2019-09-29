@@ -3,7 +3,7 @@
 #include <memory>
 
 #include "ComplicatedZomby/DataReceiver.h"
-#include "ComplicatedZomby/Manager.h"
+#include "Common/Manager.h"
 
 namespace Common {
 class Listener;
@@ -12,7 +12,7 @@ class Listener;
 namespace ComplicatedZomby {
 class DataSource;
 
-class Zomby final : public DataReceiver, public Manager, public std::enable_shared_from_this<Zomby>
+class Zomby final : public DataReceiver, public Common::Manager, public std::enable_shared_from_this<Zomby>
 {
 public:
     ~Zomby() override;

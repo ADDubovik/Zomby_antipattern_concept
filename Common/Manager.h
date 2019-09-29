@@ -4,9 +4,7 @@
 
 namespace Common {
 class Listener;
-} // namespace Common
 
-namespace ComplicatedZomby {
 class Manager
 {
 public:
@@ -14,4 +12,4 @@ public:
 
     virtual void run(const std::shared_ptr<Common::Listener> listener) = 0;
 };
-} // namespace ComplicatedZomby
+} // namespace Common
