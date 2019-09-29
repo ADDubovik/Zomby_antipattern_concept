@@ -25,7 +25,7 @@ void Zomby::dataArrived(int data)
 {
     if (_listener) {
         std::ostringstream buf;
-        buf << "ComplicatedZomby have got a fresh data: " << data << std::endl;
+        buf << "ComplicatedZomby has got a fresh data: " << data << std::endl;
         _listener->processData(std::make_shared<std::string>(buf.str()));
     }
 }

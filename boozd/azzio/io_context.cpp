@@ -21,9 +21,8 @@ void io_context::run()
         using namespace std::chrono;
         auto start = steady_clock::now();
         while (duration_cast<milliseconds>(steady_clock::now() - start).count() < 1000) {
-            if (!(rand() & 0xff))
-                if (auto read = s.read())
-                    buf.emplace_back(*read);
+            if (auto read = s.read())
+                buf.emplace_back(*read);
             std::this_thread::sleep_for(std::chrono::milliseconds(1));
         }
 

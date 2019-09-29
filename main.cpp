@@ -25,7 +25,9 @@ int main()
         std::this_thread::sleep_for(std::chrono::milliseconds(4500));
     } // Zombies should be killed here
 
-    std::cout << "Zombies were killed" << std::endl;
+    std::cout << "============================================================" << std::endl
+              << "|                    Zombies were killed                   |" << std::endl
+              << "============================================================" << std::endl;
 
     std::this_thread::sleep_for(std::chrono::milliseconds(5000));
 
