@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "RandomDataSource.h"
 #include "DataReceiver.h"
 
@@ -10,6 +12,8 @@ RandomDataSource::~RandomDataSource()
 {
     if (_semaphoreShared)
         *_semaphoreShared = false;
+
+    std::cout << __func__ << std::endl;
 } // ... and waiting for future destruction
 
 void RandomDataSource::run(const std::shared_ptr<DataReceiver> receiver)

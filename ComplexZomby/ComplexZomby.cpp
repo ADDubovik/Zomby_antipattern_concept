@@ -1,10 +1,14 @@
 #include <sstream>
+#include <iostream>
 
 #include "ComplexZomby.h"
 #include "RandomDataSource.h"
 #include "Listener.h"
 
-ComplexZomby::~ComplexZomby() = default;
+ComplexZomby::~ComplexZomby()
+{
+    std::cout << __func__ << std::endl;
+}
 
 void ComplexZomby::run(const std::shared_ptr<Listener> listener)
 {

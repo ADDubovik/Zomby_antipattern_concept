@@ -22,8 +22,7 @@ int main()
 
     std::cout << "Zombies were killed" << std::endl;
 
-    while (true)
-        std::this_thread::sleep_for(std::chrono::milliseconds(1));
+    std::this_thread::sleep_for(std::chrono::milliseconds(5000));
 
     return 0;
 }

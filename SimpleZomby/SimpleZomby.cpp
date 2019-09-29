@@ -2,6 +2,11 @@
 
 #include <iostream>
 
+SimpleZomby::~SimpleZomby()
+{
+    std::cout << __func__ << std::endl;
+}
+
 void SimpleZomby::runSomethingAsync()
 {
     _future = std::async(std::launch::async, [shis = shared_from_this()](){
