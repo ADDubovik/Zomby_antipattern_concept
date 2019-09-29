@@ -41,7 +41,7 @@ void Zomby::run(const std::shared_ptr<Common::Listener> listener)
                             buf << elem << ' ';
                         buf << std::endl;
 
-                        shis->_listener->processData(std::make_shared<std::string>(buf.str()));
+                        shis->_listener->processData(std::make_shared<Common::Listener::Data>(buf.str()));
                     }
                 };
                 shis->_buffer->clear();

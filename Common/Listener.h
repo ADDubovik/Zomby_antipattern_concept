@@ -9,6 +9,8 @@ class Listener
 public:
     virtual ~Listener() = default;
 
-    virtual void processData(const std::shared_ptr<const std::string> data) = 0;
+    using Data = std::string;
+
+    virtual void processData(const std::shared_ptr<const Data> data) = 0;
 };
 } // namespace Common

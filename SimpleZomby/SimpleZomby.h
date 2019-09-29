@@ -2,12 +2,18 @@
 
 #include <future>
 
-class SimpleZomby : public std::enable_shared_from_this<SimpleZomby>
+#include "Common/Manager.h"
+
+namespace Common {
+class Listener;
+} // namespace Common
+
+class SimpleZomby : public Common::Manager, public std::enable_shared_from_this<SimpleZomby>
 {
 public:
-    ~SimpleZomby();
+    ~SimpleZomby() override;
 
-    void runSomethingAsync();
+    void run(const std::shared_ptr<Common::Listener> listener) override;
 
 private:
     std::future<void> _future;

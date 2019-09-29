@@ -2,6 +2,7 @@
 #include <memory>
 #include <chrono>
 #include <thread>
+#include <sstream>
 
 #include "SimpleZomby/SimpleZomby.h"
 #include "ComplicatedZomby/Impl/ComplicatedZomby.h"
@@ -10,11 +11,11 @@
 
 int main()
 {
+    auto writeToConsoleListener = std::make_shared<Common::WriteToConsoleListener>();
+
     {
         auto simpleZomby = std::make_shared<SimpleZomby>();
-        simpleZomby->runSomethingAsync();
-
-        auto writeToConsoleListener = std::make_shared<Common::WriteToConsoleListener>();
+        simpleZomby->run(writeToConsoleListener);
 
         auto complicatedZomby = std::make_shared<ComplicatedZomby::Zomby>();
         complicatedZomby->run(writeToConsoleListener);
@@ -25,9 +26,14 @@ int main()
         std::this_thread::sleep_for(std::chrono::milliseconds(4500));
     } // Zombies should be killed here
 
-    std::cout << "============================================================" << std::endl
-              << "|                    Zombies were killed                   |" << std::endl
-              << "============================================================" << std::endl;
+    {
+        std::ostringstream buf;
+        buf << "============================================================\n"
+            << "|                    Zombies were killed                   |\n"
+            << "============================================================\n";
+        if (writeToConsoleListener)
+            writeToConsoleListener->processData(std::make_shared<Common::Listener::Data>(buf.str()));
+    }
 
     std::this_thread::sleep_for(std::chrono::milliseconds(5000));
 

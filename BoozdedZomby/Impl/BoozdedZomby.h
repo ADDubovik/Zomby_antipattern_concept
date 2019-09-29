@@ -23,8 +23,6 @@ public:
     Zomby();
     ~Zomby() override;
 
-    // TODO: disable copy and move semantics
-
     void run(const std::shared_ptr<Common::Listener> listener) override;
 
 private:
