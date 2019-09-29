@@ -5,7 +5,7 @@
 
 SimpleZomby::~SimpleZomby()
 {
-    std::cout << __func__ << std::endl;
+    std::cout << typeid(*this).name() << "::" << __func__ << std::endl;
 }
 
 void SimpleZomby::run(const std::shared_ptr<Common::Listener> listener)

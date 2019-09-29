@@ -5,7 +5,7 @@
 namespace Common {
 WriteToConsoleListener::~WriteToConsoleListener()
 {
-    std::cout << __func__ << std::endl;
+    std::cout << typeid(*this).name() << "::" << __func__ << std::endl;
 }
 
 void WriteToConsoleListener::processData(const std::shared_ptr<const Data> data)

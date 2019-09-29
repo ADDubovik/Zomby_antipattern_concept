@@ -6,7 +6,7 @@
 namespace boozd::azzio {
 io_context::~io_context()
 {
-    std::cout << __func__ << std::endl;
+    std::cout << typeid(*this).name() << "::" << __func__ << std::endl;
 }
 
 void io_context::async_read(buffer& buf, stream& s, io_context::handler&& h)

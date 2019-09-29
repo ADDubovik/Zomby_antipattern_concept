@@ -5,7 +5,7 @@
 namespace boozd::azzio {
 boozd::azzio::random_stream::~random_stream()
 {
-    std::cout << __func__ << std::endl;
+    std::cout << typeid(*this).name() << "::" << __func__ << std::endl;
 }
 
 std::optional<int> random_stream::read()

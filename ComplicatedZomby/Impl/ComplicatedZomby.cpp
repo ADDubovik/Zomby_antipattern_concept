@@ -8,7 +8,7 @@
 namespace ComplicatedZomby {
 Zomby::~Zomby()
 {
-    std::cout << __func__ << std::endl;
+    std::cout << typeid(*this).name() << "::" << __func__ << std::endl;
 }
 
 void Zomby::run(const std::shared_ptr<Common::Listener> listener)

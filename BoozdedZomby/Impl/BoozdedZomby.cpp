@@ -16,7 +16,7 @@ Zomby::~Zomby()
     if (_semaphoreShared)
         *_semaphoreShared = false;
 
-    std::cout << __func__ << std::endl;
+    std::cout << typeid(*this).name() << "::" << __func__ << std::endl;
 } // ... and waiting for future destruction
 
 void Zomby::run(const std::shared_ptr<Common::Listener> listener)
