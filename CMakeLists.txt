@@ -7,6 +7,7 @@ include_directories(${CMAKE_SOURCE_DIR})
 set(SRC
 	boozd/azzio/impl/random_stream.h
 	boozd/azzio/impl/random_stream.cpp
+	boozd/azzio/buffer.h
 	boozd/azzio/io_context.h
 	boozd/azzio/io_context.cpp
 	boozd/azzio/stream.h

@@ -17,7 +17,7 @@ io_context::~io_context()
     std::cout << __func__ << std::endl;
 }
 
-void io_context::async_read(io_context::buffer& buf, stream& s, io_context::handler&& h)
+void io_context::async_read(buffer& buf, stream& s, io_context::handler&& h)
 {
     _pack_shared = std::make_shared<pack>(buf, s, std::move(h));
 }
