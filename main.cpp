@@ -15,13 +15,16 @@ int main()
 
     {
         auto simpleZomby = std::make_shared<SimpleZomby::Zomby>();
-        simpleZomby->run(writeToConsoleListener);
+        simpleZomby->initWithListener(writeToConsoleListener);
+        simpleZomby->run();
 
         auto complicatedZomby = std::make_shared<ComplicatedZomby::Zomby>();
-        complicatedZomby->run(writeToConsoleListener);
+        complicatedZomby->initWithListener(writeToConsoleListener);
+        complicatedZomby->run();
 
         auto boozdedZomby = std::make_shared<BoozdedZomby::Zomby>();
-        boozdedZomby->run(writeToConsoleListener);
+        boozdedZomby->initWithListener(writeToConsoleListener);
+        boozdedZomby->run();
 
         std::this_thread::sleep_for(std::chrono::milliseconds(4500));
     } // Zombies should be killed here

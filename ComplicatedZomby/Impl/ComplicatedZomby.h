@@ -17,7 +17,9 @@ class Zomby final : public DataReceiver, public Common::Manager, public std::ena
 public:
     ~Zomby() override;
 
-    void run(const std::shared_ptr<Common::Listener> listener) override;
+    void initWithListener(std::shared_ptr<Common::Listener> listener) override;
+
+    void run() override;
 
 private:
     virtual void dataArrived(int data) override;

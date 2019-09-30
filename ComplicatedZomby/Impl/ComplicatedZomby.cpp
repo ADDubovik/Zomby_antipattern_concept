@@ -11,10 +11,15 @@ Zomby::~Zomby()
     std::cout << typeid(*this).name() << "::" << __func__ << std::endl;
 }
 
-void Zomby::run(const std::shared_ptr<Common::Listener> listener)
+void Zomby::initWithListener(std::shared_ptr<Common::Listener> listener)
 {
-    _listener = listener;
+    if (listener && !_listener) {
+        _listener = listener;
+    }
+}
 
+void Zomby::run()
+{
     if (!_dataSource)
         _dataSource = std::make_shared<RandomDataSource>();
     if (_dataSource)

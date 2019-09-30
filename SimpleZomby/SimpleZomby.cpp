@@ -16,7 +16,14 @@ Zomby::~Zomby()
     std::cout << typeid(*this).name() << "::" << __func__ << std::endl;
 }
 
-void Zomby::run(const std::shared_ptr<Common::Listener> listener)
+void Zomby::initWithListener(std::shared_ptr<Common::Listener> listener)
+{
+    if (listener && !_listener) {
+        _listener = listener;
+    }
+}
+
+void Zomby::run()
 {
     if (_semaphoreShared) {
         *_semaphoreShared = false;
@@ -27,9 +34,9 @@ void Zomby::run(const std::shared_ptr<Common::Listener> listener)
 
     _semaphoreShared = std::make_shared<Semaphore>(true);
 
-    _thread = std::thread([shis = shared_from_this(), listener, semaphoreShared = _semaphoreShared](){
-        while(shis && listener && semaphoreShared && *semaphoreShared) {
-            listener->processData(std::make_shared<Common::Listener::Data>("SimpleZomby      is alive!\n"));
+    _thread = std::thread([shis = shared_from_this(), semaphoreShared = _semaphoreShared](){
+        while(shis && shis->_listener && semaphoreShared && *semaphoreShared) {
+            shis->_listener->processData(std::make_shared<Common::Listener::Data>("SimpleZomby      is alive!\n"));
             std::this_thread::sleep_for(std::chrono::milliseconds(1000));
         }
     });

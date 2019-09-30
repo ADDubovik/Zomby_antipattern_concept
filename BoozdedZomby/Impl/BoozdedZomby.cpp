@@ -16,9 +16,16 @@ Zomby::~Zomby()
     }
 
     std::cout << typeid(*this).name() << "::" << __func__ << std::endl;
-} // ... and waiting for future destruction
+}
 
-void Zomby::run(const std::shared_ptr<Common::Listener> listener)
+void Zomby::initWithListener(std::shared_ptr<Common::Listener> listener)
+{
+    if (listener && !_listener) {
+        _listener = listener;
+    }
+}
+
+void Zomby::run()
 {
     if (_semaphoreShared) {
         *_semaphoreShared = false;
@@ -29,7 +36,6 @@ void Zomby::run(const std::shared_ptr<Common::Listener> listener)
 
     _semaphoreShared = std::make_shared<Semaphore>(true);
 
-    _listener = listener;
     _stream = std::make_shared<boozd::azzio::random_stream>();
     _buffer = std::make_shared<boozd::azzio::buffer>();
     _context = std::make_shared<boozd::azzio::io_context>();
