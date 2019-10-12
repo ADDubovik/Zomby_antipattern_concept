@@ -25,6 +25,8 @@ set(SRC
 	ComplicatedZomby/DataSource.h
 	SimpleZomby/SimpleZomby.h
 	SimpleZomby/SimpleZomby.cpp
+	SteppingZomby/SteppingZomby.h
+	SteppingZomby/SteppingZomby.cpp
 	main.cpp
 )
 

@@ -5,6 +5,7 @@
 #include <sstream>
 
 #include "SimpleZomby/SimpleZomby.h"
+#include "SteppingZomby/SteppingZomby.h"
 #include "ComplicatedZomby/Impl/ComplicatedZomby.h"
 #include "BoozdedZomby/Impl/BoozdedZomby.h"
 #include "Common/Impl/WriteToConsoleListener.h"
@@ -17,6 +18,10 @@ int main()
         auto simpleZomby = std::make_shared<SimpleZomby::Zomby>();
         simpleZomby->initWithListener(writeToConsoleListener);
         simpleZomby->run();
+
+        auto steppingZomby = std::make_shared<SteppingZomby::Zomby>();
+        steppingZomby->initWithListener(writeToConsoleListener);
+        steppingZomby->run();
 
         auto complicatedZomby = std::make_shared<ComplicatedZomby::Zomby>();
         complicatedZomby->initWithListener(writeToConsoleListener);
