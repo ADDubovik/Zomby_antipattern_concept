@@ -28,9 +28,8 @@ public:
 
 private:
     using Semaphore = std::atomic<bool>;
-    using SemaphoreShared = std::shared_ptr<Semaphore>;
 
-    SemaphoreShared _semaphoreShared;
+    Semaphore _semaphore;
     std::shared_ptr<Common::Listener> _listener;
     std::shared_ptr<boozd::azzio::stream> _stream;
     std::shared_ptr<boozd::azzio::buffer> _buffer;

@@ -20,10 +20,12 @@ void Zomby::initWithListener(std::shared_ptr<Common::Listener> listener)
 
 void Zomby::run()
 {
-    if (!_dataSource)
+    if (!_dataSource) {
         _dataSource = std::make_shared<RandomDataSource>();
-    if (_dataSource)
+    }
+    if (_dataSource) {
         _dataSource->run(shared_from_this());
+    }
 }
 
 void Zomby::dataArrived(int data)

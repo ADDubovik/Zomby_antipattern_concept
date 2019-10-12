@@ -16,9 +16,8 @@ public:
 
 private:
     using Semaphore = std::atomic<bool>;
-    using SemaphoreShared = std::shared_ptr<Semaphore>;
 
-    SemaphoreShared _semaphoreShared;
+    Semaphore _semaphore;
     std::thread _thread;
 };
 } // namespace ComplicatedZomby

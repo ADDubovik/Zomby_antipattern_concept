@@ -22,10 +22,9 @@ public:
 
 private:
     using Semaphore = std::atomic<bool>;
-    using SemaphoreShared = std::shared_ptr<Semaphore>;
 
     std::shared_ptr<Common::Listener> _listener;
-    SemaphoreShared _semaphoreShared;
+    Semaphore _semaphore;
     std::thread _thread;
 };
 } // namespace SimpleZomby

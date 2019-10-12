@@ -6,11 +6,9 @@
 namespace SimpleZomby {
 Zomby::~Zomby()
 {
-    if (_semaphoreShared) {
-        *_semaphoreShared = false;
-        while (_semaphoreShared.use_count() > 1) {
-            std::this_thread::sleep_for(std::chrono::milliseconds(1));
-        }
+    if (_semaphore && _thread.joinable()) {
+        _semaphore = false;
+        _thread.join();
     }
 
     std::cout << typeid(*this).name() << "::" << __func__ << std::endl;
@@ -25,22 +23,22 @@ void Zomby::initWithListener(std::shared_ptr<Common::Listener> listener)
 
 void Zomby::run()
 {
-    if (_semaphoreShared) {
-        *_semaphoreShared = false;
-        while (_semaphoreShared.use_count() > 1) {
-            std::this_thread::sleep_for(std::chrono::milliseconds(1));
-        }
+    if (_semaphore && _thread.joinable()) {
+        _semaphore = false;
+        _thread.join();
     }
 
-    _semaphoreShared = std::make_shared<Semaphore>(true);
+    _semaphore = true;
 
-    _thread = std::thread([shis = shared_from_this(), semaphoreShared = _semaphoreShared](){
-        while(shis && shis->_listener && semaphoreShared && *semaphoreShared) {
-            shis->_listener->processData(std::make_shared<Common::Listener::Data>("SimpleZomby      is alive!\n"));
-            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    _thread = std::thread([shis = shared_from_this(), &semaphore = _semaphore](){
+        int i = 0;
+        while(shis && shis->_listener && semaphore) {
+            if (++i == 1000) {
+                shis->_listener->processData(std::make_shared<Common::Listener::Data>("SimpleZomby      is alive!\n"));
+                i = 0;
+            }
+            std::this_thread::sleep_for(std::chrono::milliseconds(1));
         }
     });
-
-    _thread.detach();
 }
 } // namespace SimpleZomby

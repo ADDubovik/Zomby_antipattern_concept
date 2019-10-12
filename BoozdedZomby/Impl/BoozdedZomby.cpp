@@ -8,11 +8,9 @@
 namespace BoozdedZomby {
 Zomby::~Zomby()
 {
-    if (_semaphoreShared) {
-        *_semaphoreShared = false;
-        while (_semaphoreShared.use_count() > 1) {
-            std::this_thread::sleep_for(std::chrono::milliseconds(1));
-        }
+    if (_semaphore && _thread.joinable()) {
+        _semaphore = false;
+        _thread.join();
     }
 
     std::cout << typeid(*this).name() << "::" << __func__ << std::endl;
@@ -27,20 +25,18 @@ void Zomby::initWithListener(std::shared_ptr<Common::Listener> listener)
 
 void Zomby::run()
 {
-    if (_semaphoreShared) {
-        *_semaphoreShared = false;
-        while (_semaphoreShared.use_count() > 1) {
-            std::this_thread::sleep_for(std::chrono::milliseconds(1));
-        }
+    if (_semaphore && _thread.joinable()) {
+        _semaphore = false;
+        _thread.join();
     }
 
-    _semaphoreShared = std::make_shared<Semaphore>(true);
+    _semaphore = true;
 
     _stream = std::make_shared<boozd::azzio::random_stream>();
     _buffer = std::make_shared<boozd::azzio::buffer>();
     _context = std::make_shared<boozd::azzio::io_context>();
     _thread = std::thread([shis = shared_from_this()]() {
-        while (shis && shis->_semaphoreShared && *shis->_semaphoreShared && shis->_buffer && shis->_stream && shis->_context && shis->_listener) {
+        while (shis && shis->_semaphore && shis->_buffer && shis->_stream && shis->_context && shis->_listener) {
             auto handler = [shis](auto errorCode) {
                 if (shis && shis->_listener && shis->_buffer && errorCode == boozd::azzio::io_context::error_code::no_error) {
                     std::ostringstream buf;
@@ -57,7 +53,5 @@ void Zomby::run()
             shis->_context->run();
         }
     });
-
-    _thread.detach();
 }
 } // namespace BoozdedZomby
