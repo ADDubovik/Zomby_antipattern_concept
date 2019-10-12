@@ -14,6 +14,13 @@ void doSomething(Common::Listener &listener, std::string callingFunctionName)
 } // namespace
 
 namespace SteppingZomby {
+Zomby::Zomby() = default;
+
+std::shared_ptr<Zomby> Zomby::create()
+{
+    return std::shared_ptr<Zomby>(new Zomby());
+}
+
 Zomby::~Zomby()
 {
     if (_semaphore && _thread.joinable()) {

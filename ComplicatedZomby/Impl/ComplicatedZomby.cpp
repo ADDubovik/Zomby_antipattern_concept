@@ -6,6 +6,13 @@
 #include "Common/Listener.h"
 
 namespace ComplicatedZomby {
+Zomby::Zomby() = default;
+
+std::shared_ptr<Zomby> Zomby::create()
+{
+    return std::shared_ptr<Zomby>(new Zomby());
+}
+
 Zomby::~Zomby()
 {
     std::cout << typeid(*this).name() << "::" << __func__ << std::endl;

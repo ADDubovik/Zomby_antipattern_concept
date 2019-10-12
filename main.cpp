@@ -15,19 +15,19 @@ int main()
     auto writeToConsoleListener = std::make_shared<Common::WriteToConsoleListener>();
 
     {
-        auto simpleZomby = std::make_shared<SimpleZomby::Zomby>();
+        auto simpleZomby = SimpleZomby::Zomby::create();
         simpleZomby->initWithListener(writeToConsoleListener);
         simpleZomby->run();
 
-        auto steppingZomby = std::make_shared<SteppingZomby::Zomby>();
+        auto steppingZomby = SteppingZomby::Zomby::create();
         steppingZomby->initWithListener(writeToConsoleListener);
         steppingZomby->run();
 
-        auto complicatedZomby = std::make_shared<ComplicatedZomby::Zomby>();
+        auto complicatedZomby = ComplicatedZomby::Zomby::create();
         complicatedZomby->initWithListener(writeToConsoleListener);
         complicatedZomby->run();
 
-        auto boozdedZomby = std::make_shared<BoozdedZomby::Zomby>();
+        auto boozdedZomby = BoozdedZomby::Zomby::create();
         boozdedZomby->initWithListener(writeToConsoleListener);
         boozdedZomby->run();
 

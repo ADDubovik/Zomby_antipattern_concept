@@ -6,6 +6,13 @@
 #include "Common/Listener.h"
 
 namespace BoozdedZomby {
+Zomby::Zomby() = default;
+
+std::shared_ptr<Zomby> Zomby::create()
+{
+    return std::shared_ptr<Zomby>(new Zomby());
+}
+
 Zomby::~Zomby()
 {
     if (_semaphore && _thread.joinable()) {
