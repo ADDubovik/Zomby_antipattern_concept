@@ -54,11 +54,23 @@ void Zomby::run()
     _thread = std::thread([shis = shared_from_this(), &semaphore = _semaphore](){
         if (shis && shis->_listener && semaphore) {
             shis->prepare();
+        }
+        if (shis && shis->_listener && semaphore) {
             shis->initialize();
+        }
+        if (shis && shis->_listener && semaphore) {
             shis->calculate();
+        }
+        if (shis && shis->_listener && semaphore) {
             shis->validate();
+        }
+        if (shis && shis->_listener && semaphore) {
             shis->sendResults();
+        }
+        if (shis && shis->_listener && semaphore) {
             shis->cleanup();
+        }
+        if (shis && shis->_listener && semaphore) {
             shis->finalize();
         }
     });
