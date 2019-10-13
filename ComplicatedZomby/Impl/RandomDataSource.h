@@ -17,7 +17,7 @@ public:
 private:
     using Semaphore = std::atomic<bool>;
 
-    Semaphore _semaphore;
+    Semaphore _semaphore = false;
     std::thread _thread;
 };
 } // namespace ComplicatedZomby

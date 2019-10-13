@@ -28,7 +28,7 @@ private:
     using Semaphore = std::atomic<bool>;
 
     std::shared_ptr<Common::Listener> _listener;
-    Semaphore _semaphore;
+    Semaphore _semaphore = false;
     std::thread _thread;
 };
 } // namespace SimpleZomby

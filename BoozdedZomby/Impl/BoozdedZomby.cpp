@@ -16,8 +16,12 @@ std::shared_ptr<Zomby> Zomby::create()
 Zomby::~Zomby()
 {
     if (_semaphore && _thread.joinable()) {
-        _semaphore = false;
-        _thread.join();
+        if (_thread.get_id() == std::this_thread::get_id()) {
+            _thread.detach();
+        } else {
+            _semaphore = false;
+            _thread.join();
+        }
     }
 
     std::cout << typeid(*this).name() << "::" << __func__ << std::endl;

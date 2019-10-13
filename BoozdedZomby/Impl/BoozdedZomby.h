@@ -33,7 +33,7 @@ private:
 
     using Semaphore = std::atomic<bool>;
 
-    Semaphore _semaphore;
+    Semaphore _semaphore = false;
     std::shared_ptr<Common::Listener> _listener;
     std::shared_ptr<boozd::azzio::stream> _stream;
     std::shared_ptr<boozd::azzio::buffer> _buffer;
