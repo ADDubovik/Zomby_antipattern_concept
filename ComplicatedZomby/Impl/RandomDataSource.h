@@ -12,7 +12,7 @@ class RandomDataSource final : public DataSource
 public:
     ~RandomDataSource() override;
 
-    virtual void run(const std::shared_ptr<DataReceiver> receiver) override;
+    void run(const std::shared_ptr<DataReceiver> receiver) override;
 
 private:
     using Semaphore = std::atomic<bool>;

@@ -5,7 +5,7 @@
 #include "Common/Listener.h"
 
 namespace {
-void doSomething(Common::Listener &listener, std::string callingFunctionName)
+void doSomething(Common::Listener& listener, std::string&& callingFunctionName)
 {
     listener.processData(std::make_shared<Common::Listener::Data>(callingFunctionName + " started\n"));
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
