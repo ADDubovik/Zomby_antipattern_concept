@@ -9,6 +9,11 @@ class Cyclic : public std::enable_shared_from_this<Cyclic>
 public:
     static std::shared_ptr<Cyclic> create();
 
+    Cyclic(const Cyclic&) = delete;
+    Cyclic(Cyclic&&) = delete;
+    Cyclic& operator=(const Cyclic&) = delete;
+    Cyclic& operator=(Cyclic&&) = delete;
+
     void doSomething();
 
 private:
