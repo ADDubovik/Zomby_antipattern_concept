@@ -2,7 +2,6 @@
 
 #include <iostream>
 
-
 namespace SimpleCyclic {
 Cyclic::Cyclic() = default;
 
