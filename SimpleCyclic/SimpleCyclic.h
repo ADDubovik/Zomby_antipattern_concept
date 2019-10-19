@@ -14,6 +14,8 @@ public:
     Cyclic& operator=(const Cyclic&) = delete;
     Cyclic& operator=(Cyclic&&) = delete;
 
+    ~Cyclic();
+
     void doSomething();
 
 private:

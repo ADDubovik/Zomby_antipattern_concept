@@ -1,8 +1,15 @@
 #include "SimpleCyclic.h"
 
+#include <iostream>
+
 
 namespace SimpleCyclic {
 Cyclic::Cyclic() = default;
+
+Cyclic::~Cyclic()
+{
+    std::cout << typeid(*this).name() << "::" << __func__ << std::endl;
+}
 
 std::shared_ptr<Cyclic> Cyclic::create()
 {
