@@ -1,6 +1,6 @@
-#include "SimpleCyclic.h"
-
 #include <iostream>
+
+#include "SimpleCyclic.h"
 
 namespace SimpleCyclic {
 Cyclic::Cyclic() = default;
