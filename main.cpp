@@ -10,6 +10,7 @@
 #include "BoozdedZomby/Impl/BoozdedZomby.h"
 #include "Common/Impl/WriteToConsoleListener.h"
 #include "SimpleCyclic/SimpleCyclic.h"
+#include "PimplCyclic/PimplCyclic.h"
 
 int main()
 {
@@ -19,6 +20,9 @@ int main()
         {
             auto simplyCyclic = SimpleCyclic::Cyclic::create();
             simplyCyclic->doSomething();
+
+            auto pimplCyclic = PimplCyclic::Cyclic();
+            pimplCyclic.doSomething();
         }
 
         {

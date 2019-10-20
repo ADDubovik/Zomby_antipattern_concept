@@ -23,6 +23,8 @@ set(SRC
 	ComplicatedZomby/Impl/RandomDataSource.cpp
 	ComplicatedZomby/DataReceiver.h
 	ComplicatedZomby/DataSource.h
+	PimplCyclic/PimplCyclic.h
+	PimplCyclic/PimplCyclic.cpp
 	SimpleCyclic/SimpleCyclic.h
 	SimpleCyclic/SimpleCyclic.cpp
 	SimpleZomby/SimpleZomby.h
