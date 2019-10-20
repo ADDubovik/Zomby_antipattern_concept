@@ -11,7 +11,7 @@ class Listener;
 } // namespace Common
 
 namespace SimpleZomby {
-class Zomby : public Common::Manager, public std::enable_shared_from_this<Zomby>
+class Zomby final : public Common::Manager, public std::enable_shared_from_this<Zomby>
 {
 public:
     static std::shared_ptr<Zomby> create();
