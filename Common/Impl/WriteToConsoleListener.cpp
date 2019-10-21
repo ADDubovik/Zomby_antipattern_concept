@@ -11,7 +11,7 @@ WriteToConsoleListener::~WriteToConsoleListener()
 void WriteToConsoleListener::processData(const std::shared_ptr<const Data> data)
 {
     if (data) {
-        std::lock_guard<std::mutex> lock(_mutex);
+        auto lock = std::lock_guard(_mutex);
         std::cout << *data << std::flush;
     }
 }
