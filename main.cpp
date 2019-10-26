@@ -9,21 +9,11 @@
 #include "ComplicatedZomby/Impl/ComplicatedZomby.h"
 #include "BoozdedZomby/Impl/BoozdedZomby.h"
 #include "Common/Impl/WriteToConsoleListener.h"
-#include "SimpleCyclic/SimpleCyclic.h"
-#include "PimplCyclic/PimplCyclic.h"
 
 int main()
 {
     try {
         auto writeToConsoleListener = std::make_shared<Common::WriteToConsoleListener>();
-
-        {
-            auto simplyCyclic = SimpleCyclic::Cyclic::create();
-            simplyCyclic->doSomething();
-
-            auto pimplCyclic = PimplCyclic::Cyclic();
-            pimplCyclic.doSomething();
-        }
 
         {
             auto simpleZomby = SimpleZomby::Zomby::create();

@@ -18,5 +18,7 @@ std::shared_ptr<Cyclic> Cyclic::create()
 void Cyclic::doSomething()
 {
     _fn = [shis = shared_from_this()](){};
+
+    std::cout << typeid(*this).name() << "::" << __func__ << std::endl;
 }
 } // namespace SimpleCyclic

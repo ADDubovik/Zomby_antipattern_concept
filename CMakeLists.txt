@@ -23,10 +23,6 @@ set(SRC
 	ComplicatedZomby/Impl/RandomDataSource.cpp
 	ComplicatedZomby/DataReceiver.h
 	ComplicatedZomby/DataSource.h
-	PimplCyclic/PimplCyclic.h
-	PimplCyclic/PimplCyclic.cpp
-	SimpleCyclic/SimpleCyclic.h
-	SimpleCyclic/SimpleCyclic.cpp
 	SimpleZomby/SimpleZomby.h
 	SimpleZomby/SimpleZomby.cpp
 	SteppingZomby/SteppingZomby.h
@@ -34,7 +30,22 @@ set(SRC
 	main.cpp
 )
 
+set(SRC_SIMPLE_CYCLIC
+	SimpleCyclic/SimpleCyclic.h
+	SimpleCyclic/SimpleCyclic.cpp
+	SimpleCyclic/main.cpp
+)
+
+set(SRC_PIMPL_CYCLIC
+	PimplCyclic/PimplCyclic.h
+	PimplCyclic/PimplCyclic.cpp
+	PimplCyclic/main.cpp
+)
+
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+add_executable(SimpleCyclic ${SRC_SIMPLE_CYCLIC})
+add_executable( PimplCyclic  ${SRC_PIMPL_CYCLIC})
 
 add_executable(ZombyConcept ${SRC})
