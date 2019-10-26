@@ -48,11 +48,11 @@ void Zomby::run()
     _thread = std::thread([shis = shared_from_this()](){
         int i = 0;
         while (shis && shis->_listener && shis->_semaphore) {
-            if (++i == 1000) {
-                shis->_listener->processData(std::make_shared<Common::Listener::Data>("SimpleZomby      is alive!\n"));
+            if (++i == 10) {
+                shis->_listener->processData(std::make_shared<Common::Listener::Data>("SimpleZomby is alive!\n"));
                 i = 0;
             }
-            std::this_thread::sleep_for(std::chrono::milliseconds(1));
+            std::this_thread::sleep_for(std::chrono::milliseconds(100));
         }
     });
 }
