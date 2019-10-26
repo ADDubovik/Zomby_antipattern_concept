@@ -10,6 +10,7 @@ class WriteToConsoleListener final : public Listener
 public:
     ~WriteToConsoleListener() override;
 
+    // blocking
     void processData(const std::shared_ptr<const Data> data) override;
 
 private:

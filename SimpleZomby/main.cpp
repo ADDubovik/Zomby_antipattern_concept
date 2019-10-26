@@ -1,4 +1,3 @@
-#include <iostream>
 #include <memory>
 #include <chrono>
 #include <thread>
@@ -22,7 +21,7 @@ int main()
     {
         std::ostringstream buf;
         buf << "============================================================\n"
-            << "|                      Zomby was killed                     |\n"
+            << "|                      Zomby was killed                    |\n"
             << "============================================================\n";
         if (writeToConsoleListener) {
             writeToConsoleListener->processData(std::make_shared<Common::Listener::Data>(buf.str()));

@@ -11,6 +11,7 @@ public:
 
     using Data = std::string;
 
+    // thread-safe
     virtual void processData(const std::shared_ptr<const Data> data) = 0;
 };
 } // namespace Common

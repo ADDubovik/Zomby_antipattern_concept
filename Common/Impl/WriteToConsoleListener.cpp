@@ -5,6 +5,7 @@
 namespace Common {
 WriteToConsoleListener::~WriteToConsoleListener()
 {
+    auto lock = std::lock_guard(_mutex);
     std::cout << typeid(*this).name() << "::" << __func__ << std::endl;
 }
 
