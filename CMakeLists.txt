@@ -29,8 +29,6 @@ set(SRC
 	ComplicatedZomby/Impl/RandomDataSource.cpp
 	ComplicatedZomby/DataReceiver.h
 	ComplicatedZomby/DataSource.h
-	SimpleZomby/SimpleZomby.h
-	SimpleZomby/SimpleZomby.cpp
 	SteppingZomby/SteppingZomby.h
 	SteppingZomby/SteppingZomby.cpp
 	main.cpp
@@ -48,6 +46,12 @@ set(SRC_PIMPL_CYCLIC
 	PimplCyclic/main.cpp
 )
 
+set(SRC_SIMPLE_ZOMBY
+	SimpleZomby/SimpleZomby.h
+	SimpleZomby/SimpleZomby.cpp
+	SimpleZomby/main.cpp
+)
+
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -56,6 +60,10 @@ add_library( boozd_lib ${SRC_BOOZD})
 
 add_executable(SimpleCyclic ${SRC_SIMPLE_CYCLIC})
 add_executable( PimplCyclic  ${SRC_PIMPL_CYCLIC})
+
+add_executable(SimpleZomby ${SRC_SIMPLE_ZOMBY})
+add_dependencies(SimpleZomby Common_lib)
+target_link_libraries(SimpleZomby Common_lib)
 
 add_executable(ZombyConcept ${SRC})
 add_dependencies(ZombyConcept Common_lib boozd_lib)

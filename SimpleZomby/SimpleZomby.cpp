@@ -28,7 +28,7 @@ Zomby::~Zomby()
 void Zomby::initWithListener(std::shared_ptr<Common::Listener> listener)
 {
     if (listener && !_listener) {
-        _listener = listener;
+        _listener = std::move(listener);
     }
 }
 
@@ -41,9 +41,9 @@ void Zomby::run()
 
     _semaphore = true;
 
-    _thread = std::thread([shis = shared_from_this(), &semaphore = _semaphore](){
+    _thread = std::thread([shis = shared_from_this()](){
         int i = 0;
-        while(shis && shis->_listener && semaphore) {
+        while (shis && shis->_listener && shis->_semaphore) {
             if (++i == 1000) {
                 shis->_listener->processData(std::make_shared<Common::Listener::Data>("SimpleZomby      is alive!\n"));
                 i = 0;
