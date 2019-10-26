@@ -8,7 +8,7 @@
 
 int main()
 {
-    auto writeToConsoleListener = std::make_shared<Common::WriteToConsoleListener>();
+    auto writeToConsoleListener = Common::WriteToConsoleListener::instance();
 
     {
         auto simpleZomby = SimpleZomby::Zomby::create();

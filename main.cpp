@@ -12,7 +12,7 @@
 int main()
 {
     try {
-        auto writeToConsoleListener = std::make_shared<Common::WriteToConsoleListener>();
+        auto writeToConsoleListener = Common::WriteToConsoleListener::instance();
 
         {
             auto steppingZomby = SteppingZomby::Zomby::create();
