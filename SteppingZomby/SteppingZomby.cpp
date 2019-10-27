@@ -51,62 +51,46 @@ void Zomby::run()
 
     _semaphore = true;
 
-    _thread = std::thread([shis = shared_from_this(), &semaphore = _semaphore](){
-        if (shis && shis->_listener && semaphore) {
-            shis->prepare();
+    _thread = std::thread([shis = shared_from_this()](){
+        if (shis && shis->_listener && shis->_semaphore) {
+            shis->resolveDnsName();
         }
-        if (shis && shis->_listener && semaphore) {
-            shis->initialize();
+        if (shis && shis->_listener && shis->_semaphore) {
+            shis->connectTcp();
         }
-        if (shis && shis->_listener && semaphore) {
-            shis->calculate();
+        if (shis && shis->_listener && shis->_semaphore) {
+            shis->establishSsl();
         }
-        if (shis && shis->_listener && semaphore) {
-            shis->validate();
+        if (shis && shis->_listener && shis->_semaphore) {
+            shis->sendHttpRequest();
         }
-        if (shis && shis->_listener && semaphore) {
-            shis->sendResults();
-        }
-        if (shis && shis->_listener && semaphore) {
-            shis->cleanup();
-        }
-        if (shis && shis->_listener && semaphore) {
-            shis->finalize();
+        if (shis && shis->_listener && shis->_semaphore) {
+            shis->readHttpReply();
         }
     });
 }
 
-void Zomby::prepare()
+void Zomby::resolveDnsName()
 {
     doSomething(*_listener, std::string(typeid(*this).name()) + "::" + __func__);
 }
 
-void Zomby::initialize()
+void Zomby::connectTcp()
 {
     doSomething(*_listener, std::string(typeid(*this).name()) + "::" + __func__);
 }
 
-void Zomby::calculate()
+void Zomby::establishSsl()
 {
     doSomething(*_listener, std::string(typeid(*this).name()) + "::" + __func__);
 }
 
-void Zomby::validate()
+void Zomby::sendHttpRequest()
 {
     doSomething(*_listener, std::string(typeid(*this).name()) + "::" + __func__);
 }
 
-void Zomby::sendResults()
-{
-    doSomething(*_listener, std::string(typeid(*this).name()) + "::" + __func__);
-}
-
-void Zomby::cleanup()
-{
-    doSomething(*_listener, std::string(typeid(*this).name()) + "::" + __func__);
-}
-
-void Zomby::finalize()
+void Zomby::readHttpReply()
 {
     doSomething(*_listener, std::string(typeid(*this).name()) + "::" + __func__);
 }

@@ -31,12 +31,10 @@ private:
     Semaphore _semaphore = false;
     std::thread _thread;
 
-    void prepare();
-    void initialize();
-    void calculate();
-    void validate();
-    void sendResults();
-    void cleanup();
-    void finalize();
+    void resolveDnsName();
+    void connectTcp();
+    void establishSsl();
+    void sendHttpRequest();
+    void readHttpReply();
 };
 } // namespace SteppingZomby

@@ -23,8 +23,6 @@ set(SRC_BOOZD
 set(SRC
 	BoozdedZomby/Impl/BoozdedZomby.h
 	BoozdedZomby/Impl/BoozdedZomby.cpp
-	SteppingZomby/SteppingZomby.h
-	SteppingZomby/SteppingZomby.cpp
 	main.cpp
 )
 
@@ -56,6 +54,12 @@ set(SRC_COMPLICATED_ZOMBY
 	ComplicatedZomby/main.cpp
 )
 
+set(SRC_STEPPING_ZOMBY
+	SteppingZomby/SteppingZomby.h
+	SteppingZomby/SteppingZomby.cpp
+	SteppingZomby/main.cpp
+)
+
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -72,6 +76,10 @@ target_link_libraries(SimpleZomby Common_lib)
 add_executable(ComplicatedZomby ${SRC_COMPLICATED_ZOMBY})
 add_dependencies(ComplicatedZomby Common_lib)
 target_link_libraries(ComplicatedZomby Common_lib)
+
+add_executable(SteppingZomby ${SRC_STEPPING_ZOMBY})
+add_dependencies(SteppingZomby Common_lib)
+target_link_libraries(SteppingZomby Common_lib)
 
 add_executable(ZombyConcept ${SRC})
 add_dependencies(ZombyConcept Common_lib boozd_lib)

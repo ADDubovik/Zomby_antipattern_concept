@@ -3,7 +3,6 @@
 #include <thread>
 #include <sstream>
 
-#include "SteppingZomby/SteppingZomby.h"
 #include "BoozdedZomby/Impl/BoozdedZomby.h"
 #include "Common/Impl/WriteToConsoleListener.h"
 
@@ -13,10 +12,6 @@ int main()
         auto writeToConsoleListener = Common::WriteToConsoleListener::instance();
 
         {
-            auto steppingZomby = SteppingZomby::Zomby::create();
-            steppingZomby->initWithListener(writeToConsoleListener);
-            steppingZomby->run();
-
             auto boozdedZomby = BoozdedZomby::Zomby::create();
             boozdedZomby->initWithListener(writeToConsoleListener);
             boozdedZomby->run();
@@ -27,7 +22,7 @@ int main()
         {
             std::ostringstream buf;
             buf << "============================================================\n"
-                << "|                    Zombies were killed                   |\n"
+                << "|                      Zomby was killed                    |\n"
                 << "============================================================\n";
             if (writeToConsoleListener)
                 writeToConsoleListener->processData(std::make_shared<Common::Listener::Data>(buf.str()));
