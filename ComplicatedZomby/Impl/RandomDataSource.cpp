@@ -30,11 +30,11 @@ void RandomDataSource::run(const std::shared_ptr<DataReceiver> receiver)
     _thread = std::thread([receiver, &semaphore = _semaphore](){
         int i = 0;
         while (receiver && semaphore) {
-            if (++i == 1000) {
+            if (++i == 10) {
                 receiver->dataArrived(rand());
                 i = 0;
             }
-            std::this_thread::sleep_for(std::chrono::milliseconds(1));
+            std::this_thread::sleep_for(std::chrono::milliseconds(100));
         }
     });
 }
