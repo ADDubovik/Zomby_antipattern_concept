@@ -64,7 +64,7 @@ void Zomby::run()
                 }
             };
             shis->_buffer->clear();
-            shis->_context->async_read(*shis->_buffer, *shis->_stream, handler);
+            shis->_context->async_read(*shis->_stream, *shis->_buffer, handler);
             shis->_context->run();
         }
     });

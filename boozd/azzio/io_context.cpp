@@ -9,7 +9,7 @@ io_context::~io_context()
     std::cout << typeid(*this).name() << "::" << __func__ << std::endl;
 }
 
-void io_context::async_read(buffer& buf, stream& s, io_context::handler&& h)
+void io_context::async_read(stream& s, buffer& buf, io_context::handler&& h)
 {
     _pack_shared = std::make_shared<pack>(buf, s);
 	_handler_shared = std::make_shared<handler>(std::move(h));

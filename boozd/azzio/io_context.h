@@ -22,7 +22,7 @@ public:
     // Start an asynchronous operation to read a certain amount of data from a stream.
     // This function is used to asynchronously read a certain number of bytes of data from a stream.
     // The function call always returns immediately.
-    void async_read(buffer& buf, stream& s, handler&& h);
+    void async_read(stream& s, buffer& buf, handler&& h);
 
     // Run the io_context object's event processing loop.
     void run();
