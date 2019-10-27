@@ -10,7 +10,7 @@ boozd::azzio::random_stream::~random_stream()
 
 std::optional<int> random_stream::read()
 {
-    if (!(rand() & 0xff))
+    if (!(rand() & 0x1))
         return rand();
 
     return std::nullopt;

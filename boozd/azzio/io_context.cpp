@@ -24,7 +24,7 @@ void io_context::run()
 		while (duration_cast<milliseconds>(steady_clock::now() - start).count() < 1000) {
             if (auto read = s.read())
                 buf.emplace_back(*read);
-            std::this_thread::sleep_for(std::chrono::milliseconds(1));
+            std::this_thread::sleep_for(std::chrono::milliseconds(100));
         }
 
         (*_handler_shared)(error_code::no_error);

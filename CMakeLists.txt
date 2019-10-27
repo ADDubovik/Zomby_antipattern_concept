@@ -20,12 +20,6 @@ set(SRC_BOOZD
 	boozd/azzio/stream.h
 )
 
-set(SRC
-	BoozdedZomby/Impl/BoozdedZomby.h
-	BoozdedZomby/Impl/BoozdedZomby.cpp
-	main.cpp
-)
-
 set(SRC_SIMPLE_CYCLIC
 	SimpleCyclic/SimpleCyclic.h
 	SimpleCyclic/SimpleCyclic.cpp
@@ -60,6 +54,12 @@ set(SRC_STEPPING_ZOMBY
 	SteppingZomby/main.cpp
 )
 
+set(SRC_BOOZDED_ZOMBY
+	BoozdedZomby/BoozdedZomby.h
+	BoozdedZomby/BoozdedZomby.cpp
+	BoozdedZomby/main.cpp
+)
+
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -81,6 +81,6 @@ add_executable(SteppingZomby ${SRC_STEPPING_ZOMBY})
 add_dependencies(SteppingZomby Common_lib)
 target_link_libraries(SteppingZomby Common_lib)
 
-add_executable(ZombyConcept ${SRC})
-add_dependencies(ZombyConcept Common_lib boozd_lib)
-target_link_libraries(ZombyConcept Common_lib boozd_lib)
+add_executable(BoozdedZomby ${SRC_BOOZDED_ZOMBY})
+add_dependencies(BoozdedZomby Common_lib boozd_lib)
+target_link_libraries(BoozdedZomby Common_lib boozd_lib)

@@ -24,7 +24,11 @@ Zomby::~Zomby()
         }
     }
 
-    std::cout << typeid(*this).name() << "::" << __func__ << std::endl;
+    if (_listener) {
+        std::ostringstream buf;
+        buf << typeid(*this).name() << "::" << __func__ << std::endl;
+        _listener->processData(std::make_shared<Common::Listener::Data>(buf.str()));
+    }
 }
 
 void Zomby::initWithListener(std::shared_ptr<Common::Listener> listener)
@@ -51,7 +55,7 @@ void Zomby::run()
             auto handler = [shis](auto errorCode) {
                 if (shis && shis->_listener && shis->_buffer && errorCode == boozd::azzio::io_context::error_code::no_error) {
                     std::ostringstream buf;
-                    buf << "BoozdedZomby     has got a fresh data: ";
+                    buf << "BoozdedZomby has got a fresh data: ";
                     for (auto const &elem : *shis->_buffer)
                         buf << elem << ' ';
                     buf << std::endl;
