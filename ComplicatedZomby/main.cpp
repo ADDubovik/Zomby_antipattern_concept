@@ -2,25 +2,25 @@
 #include <thread>
 #include <sstream>
 
+#include "ComplicatedZomby/Impl/ComplicatedZomby.h"
 #include "Common/Impl/WriteToConsoleListener.h"
-#include "SimpleZomby/SimpleZomby.h"
 
 int main()
 {
     auto writeToConsoleListener = Common::WriteToConsoleListener::instance();
 
     {
-        auto simpleZomby = SimpleZomby::Zomby::create();
-        simpleZomby->initWithListener(writeToConsoleListener);
-        simpleZomby->run();
+        auto complicatedZomby = ComplicatedZomby::Zomby::create();
+        complicatedZomby->initWithListener(writeToConsoleListener);
+        complicatedZomby->run();
 
         std::this_thread::sleep_for(std::chrono::milliseconds(4500));
-    } // Zomby should be killed here
+    } // Zombies should be killed here
 
     {
         std::ostringstream buf;
         buf << "============================================================\n"
-            << "|                      Zomby was killed                    |\n"
+            << "|                    Zombies were killed                   |\n"
             << "============================================================\n";
         if (writeToConsoleListener) {
             writeToConsoleListener->processData(std::make_shared<Common::Listener::Data>(buf.str()));

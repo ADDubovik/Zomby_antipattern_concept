@@ -1,11 +1,9 @@
 #include <iostream>
-#include <memory>
 #include <chrono>
 #include <thread>
 #include <sstream>
 
 #include "SteppingZomby/SteppingZomby.h"
-#include "ComplicatedZomby/Impl/ComplicatedZomby.h"
 #include "BoozdedZomby/Impl/BoozdedZomby.h"
 #include "Common/Impl/WriteToConsoleListener.h"
 
@@ -18,10 +16,6 @@ int main()
             auto steppingZomby = SteppingZomby::Zomby::create();
             steppingZomby->initWithListener(writeToConsoleListener);
             steppingZomby->run();
-
-            auto complicatedZomby = ComplicatedZomby::Zomby::create();
-            complicatedZomby->initWithListener(writeToConsoleListener);
-            complicatedZomby->run();
 
             auto boozdedZomby = BoozdedZomby::Zomby::create();
             boozdedZomby->initWithListener(writeToConsoleListener);
