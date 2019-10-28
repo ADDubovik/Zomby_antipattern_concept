@@ -1,6 +1,7 @@
 #pragma once
 
 #include <functional>
+#include <optional>
 
 #include "buffer.h"
 
@@ -25,10 +26,10 @@ public:
 
 private:
     using pack = std::tuple<buffer&, stream&>;
-    using pack_shared = std::shared_ptr<pack>;
-    using handler_shared = std::shared_ptr<handler>;
+    using pack_optional = std::optional<pack>;
+    using handler_optional = std::optional<handler>;
 
-    pack_shared _pack_shared;
-    handler_shared _handler_shared;
+    pack_optional _pack_optional;
+    handler_optional _handler_optional;
 };
 } // namespace boozd::azzio

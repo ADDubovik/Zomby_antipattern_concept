@@ -13,23 +13,23 @@ io_context::~io_context()
 
 void io_context::async_read(stream& s, buffer& buf, io_context::handler&& h)
 {
-    _pack_shared = std::make_shared<pack>(buf, s);
-	_handler_shared = std::make_shared<handler>(std::move(h));
+    _pack_optional.emplace(buf, s);
+    _handler_optional.emplace(std::move(h));
 }
 
 void io_context::run()
 {
-    if (_pack_shared && _handler_shared) {
-		auto& [buf, s] = *_pack_shared;
+    if (_pack_optional && _handler_optional) {
+        auto& [buf, s] = *_pack_optional;
 		using namespace std::chrono;
         auto start = steady_clock::now();
 		while (duration_cast<milliseconds>(steady_clock::now() - start).count() < 1000) {
             if (auto read = s.read())
                 buf.emplace_back(*read);
-            std::this_thread::sleep_for(std::chrono::milliseconds(100));
+            std::this_thread::sleep_for(milliseconds(100));
         }
 
-        (*_handler_shared)(error_code::no_error);
+        (*_handler_optional)(error_code::no_error);
 	}
 }
 } // namespace boozd::azzio
