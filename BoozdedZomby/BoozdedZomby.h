@@ -35,9 +35,9 @@ private:
 
     Semaphore _semaphore = false;
     std::shared_ptr<Common::Listener> _listener;
-    std::shared_ptr<boozd::azzio::stream> _stream;
-    std::shared_ptr<boozd::azzio::buffer> _buffer;
-    std::shared_ptr<boozd::azzio::io_context> _context;
+    std::unique_ptr<boozd::azzio::stream> _stream;
+    boozd::azzio::buffer _buffer;
+    boozd::azzio::io_context _context;
     std::thread _thread;
 };
 } // namespace BoozdedZomby
