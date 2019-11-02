@@ -31,14 +31,7 @@ Zomby::~Zomby()
     }
 }
 
-void Zomby::initWithListener(std::shared_ptr<Common::Listener> listener)
-{
-    if (listener && !_listener) {
-        _listener = listener;
-    }
-}
-
-void Zomby::run()
+void Zomby::runOnce(std::shared_ptr<Common::Listener> listener)
 {
     if (_semaphore && _thread.joinable()) {
         _semaphore = false;

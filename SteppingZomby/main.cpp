@@ -11,8 +11,7 @@ int main()
 
     {
         auto steppingZomby = SteppingZomby::Zomby::create();
-        steppingZomby->initWithListener(writeToConsoleListener);
-        steppingZomby->run();
+        steppingZomby->runOnce(writeToConsoleListener);
 
         std::this_thread::sleep_for(std::chrono::milliseconds(1500));
     } // Zombies should be killed here

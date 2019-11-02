@@ -21,20 +21,17 @@ Zomby::~Zomby()
     }
 }
 
-void Zomby::initWithListener(std::shared_ptr<Common::Listener> listener)
+void Zomby::runOnce(std::shared_ptr<Common::Listener> listener)
 {
-    if (listener && !_listener) {
-        _listener = std::move(listener);
-    }
-}
+    _listener = listener;
 
-void Zomby::run()
-{
-    if (!_dataSource) {
-        _dataSource = std::make_shared<RandomDataSource>();
-    }
     if (_dataSource) {
-        _dataSource->run(shared_from_this());
+        throw std::runtime_error("ComplicatedZomby::Zomby::runOnce() called twice");
+    }
+
+    _dataSource = std::make_shared<RandomDataSource>();
+    if (_dataSource) {
+        _dataSource->runOnce(shared_from_this());
     }
 }
 

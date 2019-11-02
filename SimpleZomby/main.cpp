@@ -11,8 +11,7 @@ int main()
 
     {
         auto simpleZomby = SimpleZomby::Zomby::create();
-        simpleZomby->initWithListener(writeToConsoleListener);
-        simpleZomby->run();
+        simpleZomby->runOnce(writeToConsoleListener);
 
         std::this_thread::sleep_for(std::chrono::milliseconds(4500));
     } // Zomby should be killed here

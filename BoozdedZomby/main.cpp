@@ -11,8 +11,7 @@ int main()
 
     {
         auto boozdedZomby = BoozdedZomby::Zomby::create();
-        boozdedZomby->initWithListener(writeToConsoleListener);
-        boozdedZomby->run();
+        boozdedZomby->runOnce(writeToConsoleListener);
 
         std::this_thread::sleep_for(std::chrono::milliseconds(4500));
     } // Zombies should be killed here

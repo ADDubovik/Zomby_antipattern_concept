@@ -19,9 +19,7 @@ public:
 
     ~Zomby() override;
 
-    void initWithListener(std::shared_ptr<Common::Listener> listener) override;
-
-    void run() override;
+    void runOnce(std::shared_ptr<Common::Listener> listener) override;
 
 private:
     Zomby();

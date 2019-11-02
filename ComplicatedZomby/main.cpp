@@ -11,8 +11,7 @@ int main()
 
     {
         auto complicatedZomby = ComplicatedZomby::Zomby::create();
-        complicatedZomby->initWithListener(writeToConsoleListener);
-        complicatedZomby->run();
+        complicatedZomby->runOnce(writeToConsoleListener);
 
         std::this_thread::sleep_for(std::chrono::milliseconds(4500));
     } // Zombies should be killed here
