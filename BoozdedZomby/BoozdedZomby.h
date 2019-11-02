@@ -7,14 +7,11 @@
 #include "Common/Manager.h"
 #include "boozd/azzio/buffer.h"
 #include "boozd/azzio/io_context.h"
-#include "boozd/azzio/stream.h"
+#include "boozd/azzio/impl/random_stream.h"
 
 namespace Common {
 class Listener;
 } // namespace Common
-namespace boozd::azzio {
-class stream;
-} // namespace boozd::azzio
 
 namespace BoozdedZomby {
 class Zomby final : public Common::Manager, public std::enable_shared_from_this<Zomby>
@@ -33,7 +30,7 @@ private:
 
     Semaphore _semaphore = false;
     std::shared_ptr<Common::Listener> _listener;
-    std::unique_ptr<boozd::azzio::stream> _stream;
+    boozd::azzio::random_stream _stream;
     boozd::azzio::buffer _buffer;
     boozd::azzio::io_context _context;
     std::thread _thread;

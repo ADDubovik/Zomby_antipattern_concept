@@ -23,14 +23,9 @@ std::shared_ptr<Zomby> Zomby::create()
 
 Zomby::~Zomby()
 {
-    if (_semaphore && _thread.joinable()) {
-        if (_thread.get_id() == std::this_thread::get_id()) {
-            _thread.detach();
-        } else {
-            _semaphore = false;
-            _thread.join();
-        }
-    }
+    _semaphore = false;
+
+    _thread.detach();
 
     if (_listener) {
         std::ostringstream buf;
@@ -41,11 +36,11 @@ Zomby::~Zomby()
 
 void Zomby::runOnce(std::shared_ptr<Common::Listener> listener)
 {
-    if (_semaphore && _thread.joinable()) {
-        _semaphore = false;
-        _thread.join();
+    if (_semaphore) {
+        throw std::runtime_error("SteppingZomby::Zomby::runOnce() called twice");
     }
 
+    _listener = listener;
     _semaphore = true;
 
     _thread = std::thread([shis = shared_from_this()](){
