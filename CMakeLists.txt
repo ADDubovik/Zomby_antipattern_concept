@@ -38,16 +38,6 @@ set(SRC_SIMPLE_ZOMBY
 	SimpleZomby/main.cpp
 )
 
-set(SRC_COMPLICATED_ZOMBY
-	ComplicatedZomby/Impl/ComplicatedZomby.h
-	ComplicatedZomby/Impl/ComplicatedZomby.cpp
-	ComplicatedZomby/Impl/RandomDataSource.h
-	ComplicatedZomby/Impl/RandomDataSource.cpp
-	ComplicatedZomby/DataReceiver.h
-	ComplicatedZomby/DataSource.h
-	ComplicatedZomby/main.cpp
-)
-
 set(SRC_STEPPING_ZOMBY
 	SteppingZomby/SteppingZomby.h
 	SteppingZomby/SteppingZomby.cpp
@@ -72,10 +62,6 @@ add_executable( PimplCyclic  ${SRC_PIMPL_CYCLIC})
 add_executable(SimpleZomby ${SRC_SIMPLE_ZOMBY})
 add_dependencies(SimpleZomby Common_lib)
 target_link_libraries(SimpleZomby Common_lib)
-
-add_executable(ComplicatedZomby ${SRC_COMPLICATED_ZOMBY})
-add_dependencies(ComplicatedZomby Common_lib)
-target_link_libraries(ComplicatedZomby Common_lib)
 
 add_executable(SteppingZomby ${SRC_STEPPING_ZOMBY})
 add_dependencies(SteppingZomby Common_lib)
