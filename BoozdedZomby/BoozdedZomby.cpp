@@ -15,14 +15,9 @@ std::shared_ptr<Zomby> Zomby::create()
 
 Zomby::~Zomby()
 {
-    if (_semaphore && _thread.joinable()) {
-        if (_thread.get_id() == std::this_thread::get_id()) {
-            _thread.detach();
-        } else {
-            _semaphore = false;
-            _thread.join();
-        }
-    }
+    _semaphore = false;
+
+    _thread.detach();
 
     if (_listener) {
         std::ostringstream buf;
