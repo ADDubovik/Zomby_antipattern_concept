@@ -17,7 +17,9 @@ Zomby::~Zomby()
 {
     _semaphore = false;
 
-    _thread.detach();
+    if (_thread.joinable()) {
+        _thread.detach();
+    }
 
     if (_listener) {
         std::ostringstream buf;
