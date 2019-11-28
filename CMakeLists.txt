@@ -53,6 +53,10 @@ set(SRC_BOOZDED_ZOMBY
 	BoozdedZomby/main.cpp
 )
 
+set(SRC_THREAD_JOINER_TEST
+	Tests/Manual/ThreadJoinerTest.cpp
+)
+
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -73,3 +77,7 @@ target_link_libraries(SteppingZomby Common_lib)
 add_executable(BoozdedZomby ${SRC_BOOZDED_ZOMBY})
 add_dependencies(BoozdedZomby Common_lib boozd_lib)
 target_link_libraries(BoozdedZomby Common_lib boozd_lib)
+
+add_executable(ThreadJoinerTest ${SRC_THREAD_JOINER_TEST})
+add_dependencies(ThreadJoinerTest Common_lib)
+target_link_libraries(ThreadJoinerTest Common_lib)
