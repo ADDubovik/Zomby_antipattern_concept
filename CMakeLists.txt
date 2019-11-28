@@ -7,8 +7,11 @@ include_directories(${CMAKE_SOURCE_DIR})
 set(SRC_COMMON
 	Common/Impl/WriteToConsoleListener.h
 	Common/Impl/WriteToConsoleListener.cpp
+	Common/Impl/ThreadJoinerAsync.h
+	Common/Impl/ThreadJoinerAsync.cpp
 	Common/Listener.h
 	Common/Manager.h
+	Common/ThreadJoiner.h
 )
 
 set(SRC_BOOZD
