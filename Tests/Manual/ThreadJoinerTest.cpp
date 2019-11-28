@@ -236,4 +236,16 @@ int main()
             }
         }
     }
+
+    {
+        const size_t count = 100;
+        auto durationPrinter11 = DurationPrinter("Test 11: ");
+        auto joiner = Common::ThreadJoinerAsync();
+        {
+            for (size_t i = 0; i < count; ++i) {
+                joiner.join(std::thread([](){ std::this_thread::sleep_for(std::chrono::milliseconds(10)); }));
+                std::this_thread::sleep_for(std::chrono::milliseconds(1));
+            }
+        }
+    }
 }
