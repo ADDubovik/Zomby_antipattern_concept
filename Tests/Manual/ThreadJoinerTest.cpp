@@ -25,6 +25,7 @@ public:
     DurationPrinter(const DurationPrinter&&) = delete;
     DurationPrinter& operator=(const DurationPrinter&) = delete;
     DurationPrinter& operator=(DurationPrinter&&) = delete;
+
 private:
     std::chrono::steady_clock::time_point _start;
     std::string _prefix;
@@ -209,6 +210,28 @@ int main()
                 auto durationPrinter9b = DurationPrinter("Test 9b: ");
                 for (auto&& elem : threads) {
                     joiner.join(std::move(elem));
+                }
+            }
+        }
+    }
+
+    {
+        const size_t count = 100;
+        auto durationPrinter10a = DurationPrinter("Test 10a: ");
+        auto joiner = Common::ThreadJoinerAsync();
+        {
+            auto threads = std::vector<std::thread>();
+            threads.reserve(count);
+            for (size_t i = 0; i < count; ++i) {
+                threads.emplace_back(std::thread([](){ std::this_thread::sleep_for(std::chrono::milliseconds(300 + 20 * (rand() & 0xf))); }));
+                std::this_thread::sleep_for(std::chrono::milliseconds(1));
+            }
+
+            {
+                auto durationPrinter10b = DurationPrinter("Test 10b: ");
+                for (auto&& elem : threads) {
+                    joiner.join(std::move(elem));
+                    std::this_thread::sleep_for(std::chrono::milliseconds(1));
                 }
             }
         }
