@@ -5,6 +5,8 @@ project(ZombyConcept LANGUAGES CXX)
 include_directories(${CMAKE_SOURCE_DIR})
 
 set(SRC_COMMON
+	Common/Impl/ProxyListener.h
+	Common/Impl/ProxyListener.cpp
 	Common/Impl/WriteToConsoleListener.h
 	Common/Impl/WriteToConsoleListener.cpp
 	Common/Listener.h
