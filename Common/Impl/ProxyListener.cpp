@@ -10,13 +10,15 @@ ProxyListener::~ProxyListener() = default;
 
 void ProxyListener::processData(const std::shared_ptr<const Listener::Data> data)
 {
-    if (auto listener = _listener) {
-        listener->processData(data);
+    auto lockGuard = std::lock_guard(_mutex);
+    if (_listener) {
+        _listener->processData(data);
     }
 }
 
 void ProxyListener::disconnect()
 {
+    auto lockGuard = std::lock_guard(_mutex);
     _listener.reset();
 }
 } // namespace Common

@@ -24,5 +24,6 @@ public:
 
 private:
     std::shared_ptr<Listener> _listener;
+    std::mutex _mutex;
 };
 } // namespace Common
