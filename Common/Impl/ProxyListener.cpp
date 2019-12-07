@@ -1,6 +1,21 @@
 #include "ProxyListener.h"
 
+
 namespace Common {
+void disconnectFn(ProxyListener* listener)
+{
+    if (listener) {
+        listener->disconnect();
+    }
+}
+
+ProxyListener::ListenerSharedWithScopeGuard ProxyListener::createGuarded(std::shared_ptr<Listener> listener)
+{
+    auto proxy = std::make_shared<ProxyListener>(listener);
+
+    return {proxy, ScopeGuard(proxy.get(), &disconnectFn)};
+}
+
 Common::ProxyListener::ProxyListener(std::shared_ptr<Common::Listener> listener)
     : _listener(listener)
 {

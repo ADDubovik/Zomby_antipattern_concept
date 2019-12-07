@@ -8,6 +8,13 @@ namespace Common {
 class ProxyListener final : public Listener
 {
 public:
+    using DisconnectFn = void (*) (ProxyListener*);
+    using ScopeGuard = std::unique_ptr<ProxyListener, DisconnectFn>;
+    using ListenerShared = std::shared_ptr<ProxyListener>;
+    using ListenerSharedWithScopeGuard = std::pair<ListenerShared, ScopeGuard>;
+
+    static ListenerSharedWithScopeGuard createGuarded(std::shared_ptr<Listener> listener);
+
     ProxyListener() = delete;
     ProxyListener(std::shared_ptr<Listener> listener);
     ProxyListener(const ProxyListener&) = delete;
