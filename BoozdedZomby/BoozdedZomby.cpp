@@ -38,9 +38,9 @@ void Zomby::runOnce(std::shared_ptr<Common::Listener> listener)
     _semaphore = true;
 
     _thread = std::thread([shis = shared_from_this()]() {
-        while (shis && shis->_semaphore && shis->_listener) {
-            auto handler = [shis](auto errorCode) {
-                if (shis && shis->_listener && errorCode == boozd::azzio::io_context::error_code::no_error) {
+        while (shis && shis.use_count() > 1 && shis->_semaphore && shis->_listener) {
+            auto handler = [&shis](auto errorCode) {
+                if (shis && shis.use_count() > 1 && shis->_listener && errorCode == boozd::azzio::io_context::error_code::no_error) {
                     std::ostringstream buf;
                     buf << "BoozdedZomby has got a fresh data: ";
                     for (auto const &elem : shis->_buffer)
