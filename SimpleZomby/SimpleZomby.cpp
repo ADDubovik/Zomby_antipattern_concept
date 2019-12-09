@@ -39,6 +39,7 @@ void Zomby::runOnce(std::shared_ptr<Common::Listener> listener)
         while (auto shis = whis.lock()) {
             if (shis->_listener) {
                 shis->_listener->processData(std::make_shared<Common::Listener::Data>("SimpleZomby is alive!\n"));
+                shis.reset();
                 std::this_thread::sleep_for(std::chrono::seconds(1));
             }
         }
