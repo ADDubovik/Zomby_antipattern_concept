@@ -26,7 +26,7 @@ Zomby::~Zomby()
     _semaphore = false;
 
     if (_thread.joinable()) {
-        _thread.detach();
+        _thread.join();
     }
 
     if (_listener) {
@@ -45,21 +45,21 @@ void Zomby::runOnce(std::shared_ptr<Common::Listener> listener)
     _listener = listener;
     _semaphore = true;
 
-    _thread = std::thread([shis = shared_from_this()](){
-        if (shis && shis->_listener && shis->_semaphore) {
-            shis->resolveDnsName();
+    _thread = std::thread([this](){
+        if (_listener && _semaphore) {
+            resolveDnsName();
         }
-        if (shis && shis->_listener && shis->_semaphore) {
-            shis->connectTcp();
+        if (_listener && _semaphore) {
+            connectTcp();
         }
-        if (shis && shis->_listener && shis->_semaphore) {
-            shis->establishSsl();
+        if (_listener && _semaphore) {
+            establishSsl();
         }
-        if (shis && shis->_listener && shis->_semaphore) {
-            shis->sendHttpRequest();
+        if (_listener && _semaphore) {
+            sendHttpRequest();
         }
-        if (shis && shis->_listener && shis->_semaphore) {
-            shis->readHttpReply();
+        if (_listener && _semaphore) {
+            readHttpReply();
         }
     });
 }
