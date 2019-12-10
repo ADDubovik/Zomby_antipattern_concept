@@ -16,7 +16,7 @@ Zomby::~Zomby()
     _semaphore = false;
 
     if (_thread.joinable()) {
-        _thread.detach();
+        _thread.join();
     }
 
     if (_listener) {
@@ -35,9 +35,9 @@ void Zomby::runOnce(std::shared_ptr<Common::Listener> listener)
     _listener = listener;
     _semaphore = true;
 
-    _thread = std::thread([shis = shared_from_this()](){
-        while (shis && shis->_listener && shis->_semaphore) {
-            shis->_listener->processData(std::make_shared<Common::Listener::Data>("SimpleZomby is alive!\n"));
+    _thread = std::thread([this](){
+        while (_listener && _semaphore) {
+            _listener->processData(std::make_shared<Common::Listener::Data>("SimpleZomby is alive!\n"));
             std::this_thread::sleep_for(std::chrono::seconds(1));
         }
     });
