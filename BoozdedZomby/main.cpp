@@ -3,15 +3,17 @@
 #include <sstream>
 
 #include "BoozdedZomby/BoozdedZomby.h"
+#include "Common/Impl/ThreadJoinerAsync.h"
 #include "Common/Impl/WriteToConsoleListener.h"
 
 int main()
 {
     auto writeToConsoleListener = Common::WriteToConsoleListener::instance();
+    auto joiner = std::make_shared<Common::ThreadJoinerAsync>();
 
     {
-        auto boozdedZomby = BoozdedZomby::Zomby::create();
-        boozdedZomby->runOnce(writeToConsoleListener);
+        auto boozdedZomby = BoozdedZomby::Zomby(joiner);
+        boozdedZomby.runOnce(writeToConsoleListener);
 
         std::this_thread::sleep_for(std::chrono::milliseconds(4500));
     } // Zombies should be killed here

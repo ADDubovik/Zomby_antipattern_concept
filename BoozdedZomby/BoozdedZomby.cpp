@@ -3,16 +3,18 @@
 
 #include "BoozdedZomby.h"
 #include "Common/Listener.h"
+#include "Common/ThreadJoiner.h"
 #include "boozd/azzio/buffer.h"
 #include "boozd/azzio/io_context.h"
 #include "boozd/azzio/impl/random_stream.h"
 
 namespace BoozdedZomby {
-Zomby::Zomby() = default;
-
-std::shared_ptr<Zomby> Zomby::create()
+Zomby::Zomby(std::shared_ptr<Common::ThreadJoiner> joiner)
+    : _joiner(joiner)
 {
-    return std::shared_ptr<Zomby>(new Zomby());
+    if (!_joiner) {
+        throw std::runtime_error("An empty joiner in BoozdedZomby::Zomby::Zomby");
+    }
 }
 
 Zomby::~Zomby()
@@ -27,7 +29,7 @@ Zomby::~Zomby()
     }
 
     if (_thread.joinable()) {
-        _thread.detach();
+        _joiner->join(std::move(_thread));
     }
 
     if (_listener) {
