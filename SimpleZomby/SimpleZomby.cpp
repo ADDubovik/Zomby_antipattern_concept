@@ -2,14 +2,16 @@
 
 #include "SimpleZomby.h"
 #include "Common/Listener.h"
+#include "Common/ThreadJoiner.h"
 
 namespace SimpleZomby {
-std::shared_ptr<Zomby> Zomby::create()
+Zomby::Zomby(std::shared_ptr<Common::ThreadJoiner> joiner)
+    : _joiner(joiner)
 {
-    return std::shared_ptr<Zomby>(new Zomby());
+    if (!_joiner) {
+        throw std::runtime_error("An empty joiner in SimpleZomby::Zomby::Zomby");
+    }
 }
-
-Zomby::Zomby() = default;
 
 Zomby::~Zomby()
 {
@@ -23,7 +25,7 @@ Zomby::~Zomby()
     }
 
     if (_thread.joinable()) {
-        _thread.detach();
+        _joiner->join(std::move(_thread));
     }
 
     if (_listener) {

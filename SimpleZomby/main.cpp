@@ -3,15 +3,17 @@
 #include <sstream>
 
 #include "Common/Impl/WriteToConsoleListener.h"
+#include "Common/Impl/ThreadJoinerAsync.h"
 #include "SimpleZomby/SimpleZomby.h"
 
 int main()
 {
     auto writeToConsoleListener = Common::WriteToConsoleListener::instance();
+    auto joiner = std::make_shared<Common::ThreadJoinerAsync>();
 
     {
-        auto simpleZomby = SimpleZomby::Zomby::create();
-        simpleZomby->runOnce(writeToConsoleListener);
+        auto simpleZomby = SimpleZomby::Zomby(joiner);
+        simpleZomby.runOnce(writeToConsoleListener);
 
         std::this_thread::sleep_for(std::chrono::milliseconds(4500));
     } // Zomby should be killed here
