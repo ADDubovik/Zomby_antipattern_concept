@@ -1,9 +1,11 @@
 #include <iostream>
 #include <sstream>
 
-#include "boozd/azzio/impl/random_stream.h"
 #include "BoozdedZomby.h"
 #include "Common/Listener.h"
+#include "boozd/azzio/buffer.h"
+#include "boozd/azzio/io_context.h"
+#include "boozd/azzio/impl/random_stream.h"
 
 namespace BoozdedZomby {
 Zomby::Zomby() = default;
@@ -15,7 +17,14 @@ std::shared_ptr<Zomby> Zomby::create()
 
 Zomby::~Zomby()
 {
-    _semaphore = false;
+    if (_semaphore) {
+        if (std::this_thread::get_id() != _thread.get_id()) {
+            auto guard = std::lock_guard(_semaphore->first);
+            _semaphore->second = false;
+        } else {
+            _semaphore->second = false;
+        }
+    }
 
     if (_thread.joinable()) {
         _thread.detach();
@@ -35,24 +44,40 @@ void Zomby::runOnce(std::shared_ptr<Common::Listener> listener)
     }
 
     _listener = listener;
-    _semaphore = true;
+    // two separate lines needed because of absence of std::mutex move c-tor
+    _semaphore = std::make_shared<Semaphore>();
+    _semaphore->second = true;
 
-    _thread = std::thread([shis = shared_from_this()]() {
-        while (shis && shis->_semaphore && shis->_listener) {
-            auto handler = [shis](auto errorCode) {
-                if (shis && shis->_listener && errorCode == boozd::azzio::io_context::error_code::no_error) {
+    _thread = std::thread([listener, semaphore = _semaphore](){
+        if (listener && semaphore) {
+            boozd::azzio::random_stream stream;
+            boozd::azzio::buffer buffer;
+            boozd::azzio::io_context context;
+
+            auto handler = [&listener, &semaphore, &buffer](auto errorCode) {
+                auto guard = std::lock_guard(semaphore->first);
+                if (semaphore->second && errorCode == boozd::azzio::io_context::error_code::no_error) {
                     std::ostringstream buf;
                     buf << "BoozdedZomby has got a fresh data: ";
-                    for (auto const &elem : shis->_buffer)
+                    for (auto const &elem : buffer)
                         buf << elem << ' ';
                     buf << std::endl;
 
-                    shis->_listener->processData(std::make_shared<Common::Listener::Data>(buf.str()));
+                    listener->processData(std::make_shared<Common::Listener::Data>(buf.str()));
                 }
             };
-            shis->_buffer.clear();
-            shis->_context.async_read(shis->_stream, shis->_buffer, handler);
-            shis->_context.run();
+
+            while (true) {
+                {
+                    auto guard = std::lock_guard(semaphore->first);
+                    if (!semaphore->second) {
+                        break;
+                    }
+                }
+                buffer.clear();
+                context.async_read(stream, buffer, handler);
+                context.run();
+            }
         }
     });
 }
