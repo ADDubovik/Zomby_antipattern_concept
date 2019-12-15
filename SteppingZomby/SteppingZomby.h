@@ -11,7 +11,7 @@ class Listener;
 } // namespace Common
 
 namespace SteppingZomby {
-class Zomby final : public Common::Manager, public std::enable_shared_from_this<Zomby>
+class Zomby final : public Common::Manager
 {
 public:
     static std::shared_ptr<Zomby> create();
@@ -23,16 +23,18 @@ public:
 private:
     Zomby();
 
-    using Semaphore = std::atomic<bool>;
+    using Semaphore = std::pair<std::mutex, bool>;
 
     std::shared_ptr<Common::Listener> _listener;
-    Semaphore _semaphore = false;
+    std::shared_ptr<Semaphore> _semaphore;
     std::thread _thread;
 
-    void resolveDnsName();
-    void connectTcp();
-    void establishSsl();
-    void sendHttpRequest();
-    void readHttpReply();
+    static bool resolveDnsName(Common::Listener&, Semaphore&);
+    static bool connectTcp(Common::Listener&, Semaphore&);
+    static bool establishSsl(Common::Listener&, Semaphore&);
+    static bool sendHttpRequest(Common::Listener&, Semaphore&);
+    static bool readHttpReply(Common::Listener&, Semaphore&);
+
+    static bool doSomething(Common::Listener&, Semaphore&, std::string&&);
 };
 } // namespace SteppingZomby
