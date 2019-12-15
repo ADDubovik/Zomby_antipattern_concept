@@ -3,15 +3,17 @@
 #include <sstream>
 
 #include "SteppingZomby/SteppingZomby.h"
+#include "Common/Impl/ThreadJoinerAsync.h"
 #include "Common/Impl/WriteToConsoleListener.h"
 
 int main()
 {
     auto writeToConsoleListener = Common::WriteToConsoleListener::instance();
+    auto joiner = std::make_shared<Common::ThreadJoinerAsync>();
 
     {
-        auto steppingZomby = SteppingZomby::Zomby::create();
-        steppingZomby->runOnce(writeToConsoleListener);
+        auto steppingZomby = SteppingZomby::Zomby(joiner);
+        steppingZomby.runOnce(writeToConsoleListener);
 
         std::this_thread::sleep_for(std::chrono::milliseconds(1500));
     } // Zombies should be killed here

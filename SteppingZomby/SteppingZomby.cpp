@@ -3,13 +3,15 @@
 
 #include "SteppingZomby.h"
 #include "Common/Listener.h"
+#include "Common/ThreadJoiner.h"
 
 namespace SteppingZomby {
-Zomby::Zomby() = default;
-
-std::shared_ptr<Zomby> Zomby::create()
+Zomby::Zomby(std::shared_ptr<Common::ThreadJoiner> joiner)
+    : _joiner(joiner)
 {
-    return std::shared_ptr<Zomby>(new Zomby());
+    if (!_joiner) {
+        throw std::runtime_error("An empty joiner in SteppingZomby::Zomby::Zomby");
+    }
 }
 
 Zomby::~Zomby()
@@ -24,7 +26,7 @@ Zomby::~Zomby()
     }
 
     if (_thread.joinable()) {
-        _thread.detach();
+        _joiner->join(std::move(_thread));
     }
 
     if (_listener) {
