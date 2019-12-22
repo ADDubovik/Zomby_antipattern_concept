@@ -3,6 +3,7 @@
 #include <sstream>
 
 #include "Common/Impl/WriteToConsoleListener.h"
+#include "Common/Impl/ProxyListener.h"
 #include "SimpleZomby/SimpleZomby.h"
 
 int main()
@@ -10,8 +11,10 @@ int main()
     auto writeToConsoleListener = Common::WriteToConsoleListener::instance();
 
     {
+        auto [proxyListener, scopeGuard] = Common::ProxyListener::createGuarded(writeToConsoleListener);
+
         auto simpleZomby = SimpleZomby::Zomby::create();
-        simpleZomby->runOnce(writeToConsoleListener);
+        simpleZomby->runOnce(proxyListener);
 
         std::this_thread::sleep_for(std::chrono::milliseconds(4500));
     } // Zomby should be killed here
