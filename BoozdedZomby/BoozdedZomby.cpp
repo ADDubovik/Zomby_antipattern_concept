@@ -37,22 +37,25 @@ void Zomby::runOnce(std::shared_ptr<Common::Listener> listener)
     _listener = listener;
     _semaphore = true;
 
-    _thread = std::thread([shis = shared_from_this()]() {
-        while (shis && shis->_semaphore && shis->_listener) {
-            auto handler = [shis](auto errorCode) {
-                if (shis && shis->_listener && errorCode == boozd::azzio::io_context::error_code::no_error) {
-                    std::ostringstream buf;
-                    buf << "BoozdedZomby has got a fresh data: ";
-                    for (auto const &elem : shis->_buffer)
-                        buf << elem << ' ';
-                    buf << std::endl;
+    _thread = std::thread([whis = weak_from_this()]() {
+        while (auto shis = whis.lock()) {
+            if (shis->_semaphore && shis->_listener) {
+                auto handler = [whis](auto errorCode) {
+                    auto shis = whis.lock();
+                    if (shis && shis->_listener && errorCode == boozd::azzio::io_context::error_code::no_error) {
+                        std::ostringstream buf;
+                        buf << "BoozdedZomby has got a fresh data: ";
+                        for (auto const &elem : shis->_buffer)
+                            buf << elem << ' ';
+                        buf << std::endl;
 
-                    shis->_listener->processData(std::make_shared<Common::Listener::Data>(buf.str()));
-                }
-            };
-            shis->_buffer.clear();
-            shis->_context.async_read(shis->_stream, shis->_buffer, handler);
-            shis->_context.run();
+                        shis->_listener->processData(std::make_shared<Common::Listener::Data>(buf.str()));
+                    }
+                };
+                shis->_buffer.clear();
+                shis->_context.async_read(shis->_stream, shis->_buffer, handler);
+                shis->_context.run();
+            }
         }
     });
 }
