@@ -15,8 +15,6 @@ std::shared_ptr<Zomby> Zomby::create()
 
 Zomby::~Zomby()
 {
-    _semaphore = false;
-
     if (_thread.joinable()) {
         _thread.detach();
     }
@@ -39,7 +37,7 @@ void Zomby::runOnce(std::shared_ptr<Common::Listener> listener)
 
     _thread = std::thread([whis = weak_from_this()]() {
         while (auto shis = whis.lock()) {
-            if (shis->_semaphore && shis->_listener) {
+            if (shis->_listener) {
                 auto handler = [whis](auto errorCode) {
                     auto shis = whis.lock();
                     if (shis && shis->_listener && errorCode == boozd::azzio::io_context::error_code::no_error) {
